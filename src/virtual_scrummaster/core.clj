@@ -7,7 +7,7 @@
   "Check the backlog for actions"
   []
   (log/info "checking the backlog...")
-  (jira/fetch-project))
+  (log/info (jira/fetch-project)))
 
 (defn ask-for-refinement
   "Ask team members to refine a user story"
@@ -26,6 +26,7 @@
 
 (defn launch
   []
-  (jira/read-jira-password)
+  (jira/read-jira-credentials)
+  (jira/fetch-project)
   (s/start! (s/scheduler {:check-the-backlog-task check-the-backlog-task}))
   (s/start! (s/scheduler {:ask-for-refinement-task ask-for-refinement-task})))
