@@ -9,7 +9,7 @@
                  [org.clojure/tools.logging "0.4.0"]
                  [ch.qos.logback/logback-classic "1.1.3"]
                  [clj-http "3.7.0"]
-                 [cheshire "5.0.0"]]
+                 [cheshire "5.8.0"]]
   :main ^:skip-aot virtual-me.core
   :resource-paths ["resources/models/nl"
                    "resources/models/en"]

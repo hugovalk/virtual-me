@@ -9,7 +9,7 @@
 (def jira-user (atom nil))
 (def base-url "https://randstad.prepend.net/jira/rest")
 
-(def jira-cookies (atom cookies/cookie-store))
+(def jira-cookies (atom (cookies/cookie-store)))
 
 (defn read-jira-user []
   (tools/swap-atom-via-prompt jira-user "Jira user:"))
@@ -25,7 +25,8 @@
   []
   (let [cs @jira-cookies]
     (http/post (str base-url "/auth/1/session")
-               {:body json/generate-string {:username @jira-user :password @jira-password}
+               {:body (json/generate-string {:username @jira-user :password @jira-password})
+                :content-type "application/json"
                 :cookie-store cs})))
 
 (defn fetch-project
@@ -34,3 +35,8 @@
     (http/get (str base-url "/api/2/project/10302")
               {:cookie-store cs})))
 
+(defn launch
+  []
+  (read-jira-credentials)
+  (authenticate)
+  (fetch-project))

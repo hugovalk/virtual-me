@@ -26,7 +26,6 @@
 
 (defn launch
   []
-  (jira/read-jira-credentials)
-  (jira/fetch-project)
+  (jira/launch)
   (s/start! (s/scheduler {:check-the-backlog-task check-the-backlog-task}))
   (s/start! (s/scheduler {:ask-for-refinement-task ask-for-refinement-task})))
