@@ -8,5 +8,3 @@
 (def person-find (make-name-finder (.getPath (io/resource "nl-ner-person.bin"))))
 (def organization-find (make-name-finder (.getPath (io/resource "nl-ner-organization.bin"))))
 (def location-find (make-name-finder (.getPath (io/resource "nl-ner-location.bin"))))
-
-(println (tokenize "Schat user stories"))

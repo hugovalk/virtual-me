@@ -9,5 +9,3 @@
 (def organization-find (make-name-finder (.getPath (io/resource "en-ner-organization.bin"))))
 (def location-find (make-name-finder (.getPath (io/resource "en-ner-location.bin"))))
 (def date-find (make-name-finder (.getPath (io/resource "en-ner-date.bin"))))
-
-(println (date-find (tokenize "The Clojure project that Hugo Valk is running is not going very fast, although it is logged in Jira yesterday.")))
