@@ -20,4 +20,7 @@
         :bootclasspath false
         :jvm-opts ["-server" "-Dfile.encoding=utf-8" "$JVM_OPTS"]}
   :profiles {:uberjar {:aot :all}
-             :dev {:plugins [[lein-binplus "0.6.2"]]}})
+             :dev {:plugins [[lein-binplus "0.6.2"]
+                             [lein-midje "3.2.1"]]
+                   :dependencies [[midje "1.9.1"]]}}
+  :aliases {"test" ^:pass-through-help ["midje"]})
