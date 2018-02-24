@@ -7,6 +7,5 @@
   (:tokens (tokenize {:language :en :text "A very nice sentence in English."})) => ["A" "very" "nice" "sentence" "in" "English" "."])
 
 (fact "tag-persons can find person names in Dutch sentences"
-  (print (tokenize (dutch "test")))
-  (tag-persons (tokenize (dutch "De pop van Evelien heet Janneke."))) => ["Evelien"])
+  (tag-persons (tokenize (dutch "De vriend van Jan Smits heet Jan."))) => ["Jan Smits", "Jan"])
 
