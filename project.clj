@@ -13,8 +13,8 @@
                  [clj-http "3.7.0"]
                  [cheshire "5.8.0"]]
   :main ^:skip-aot virtual-me.core
-  :resource-paths ["resources/models/nl"
-                   "resources/models/en"]
+  :resource-paths ["models/nl"
+                   "models/en"]
   :target-path "target/%s"
   :bin {:name "test-app"
         :bin-path "."
@@ -25,6 +25,7 @@
              :dev {:plugins [[lein-binplus "0.6.2"]
                              [lein-midje "3.2.1"]
                              [lein-ring "0.12.3"]]
-                   :dependencies [[midje "1.9.1"]]}}
+                   :dependencies [[midje "1.9.1"]
+                                  [javax.servlet/servlet-api "2.5"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]}
   :ring {:handler virtual-me.web.routes/app})
