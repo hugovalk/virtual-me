@@ -29,6 +29,7 @@
                              [lein-midje "3.2.1"]
                              [lein-ring "0.12.3"]]
                    :dependencies [[midje "1.9.1"]
+                                  [ring/ring-mock "0.3.2"]
                                   [javax.servlet/servlet-api "2.5"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]}
   :ring {:handler virtual-me.web.routes/app})

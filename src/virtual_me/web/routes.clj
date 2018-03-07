@@ -1,8 +1,7 @@
 (ns virtual-me.web.routes
   (:use compojure.core
         virtual-me.web.views
-        virtual-me.web.api
-        [hiccup.middleware :only (wrap-base-url)])
+        virtual-me.web.api)
   (:require [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]))
 
