@@ -1,9 +1,10 @@
 (ns virtual-me.web.routes
   (:use compojure.core
         virtual-me.web.views
+        virtual-me.web.api
         [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.route :as route]
-            [compojure.handler :as handler]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]))
 
 (defroutes main-routes
   (GET "/" [] (index-page))
@@ -11,5 +12,6 @@
   (route/not-found "Page not found"))
 
 (def app
-  (-> (handler/site main-routes)
-      (wrap-base-url)))
+  (routes
+    (wrap-defaults api-routes api-defaults)
+    (wrap-defaults main-routes site-defaults)))

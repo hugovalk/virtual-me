@@ -1,6 +1,6 @@
 (ns virtual-me.nlp.core
-  (:require [virtual-me.nlp.en :as en])
-  (:require [virtual-me.nlp.nl :as nl]))
+  (:require [virtual-me.nlp.en :as en]
+            [virtual-me.nlp.nl :as nl]))
 
 (defn dutch
   [text] {:language :nl :text text})

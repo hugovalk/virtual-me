@@ -7,5 +7,5 @@
      [:title "Hwllo World"]
      (include-css "/css/style.css")]
     [:body
-     [:header ]
+     [:header]
      [:h1 "Hello World"]]))

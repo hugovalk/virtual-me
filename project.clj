@@ -9,12 +9,15 @@
                  [org.clojure/tools.logging "0.4.0"]
                  [ch.qos.logback/logback-classic "1.1.3"]
                  [compojure "1.6.0"]
+                 [metosin/compojure-api "1.1.11"]
+                 [ring/ring-defaults "0.3.1"]
                  [hiccup "1.0.5"]
                  [clj-http "3.7.0"]
                  [cheshire "5.8.0"]]
   :main ^:skip-aot virtual-me.core
   :resource-paths ["models/nl"
-                   "models/en"]
+                   "models/en"
+                   "resources"]
   :target-path "target/%s"
   :bin {:name "test-app"
         :bin-path "."
