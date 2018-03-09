@@ -8,7 +8,6 @@
     (let [response (app (-> (mock/request :get "/swagger.json")))]
       (:status response) => 200))
 
-
   (fact "Test that /api-docs redirects to /api-docs/index.html exists"
     (let [response (app (-> (mock/request :get "/api-docs")))]
       (:status response) => 200

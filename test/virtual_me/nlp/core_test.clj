@@ -8,4 +8,3 @@
 
 (fact "tag-persons can find person names in Dutch sentences"
   (tag-persons (tokenize (dutch "De vriend van Jan Smits heet Jan."))) => ["Jan Smits", "Jan"])
-
