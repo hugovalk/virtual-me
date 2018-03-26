@@ -1,35 +1,43 @@
 (ns virtual-me.js
-  (:require [reagent.core :as r]))
+  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require [reagent.core :as r]
+            [cljs-http.client :as http]
+            [cljs.core.async :refer [<!]]))
+
+(enable-console-print!)
 
 (defonce timer (r/atom (js/Date.)))
-
-(defonce time-color (r/atom "#f34"))
 
 (defonce time-updater (js/setInterval
                         #(reset! timer (js/Date.)) 1000))
 
-(defn greeting [message]
-  [:h2 message])
+(defn greeting []
+  (let [ping (r/atom "")]
+    (r/create-class
+      {:component-did-mount
+       (fn []
+         (go (let [{{id :id} :body} (<! (http/get "/api/ping/Botty"))]
+               (prn id)
+               (reset! ping id))))
+       :display-name "greeting"
+       :reagent-render
+       (fn []
+         [:h2 "you are talking with " @ping])})))
 
 (defn clock []
   (let [time-str (-> @timer .toTimeString (clojure.string/split " ") first)]
-    [:div.example-clock
-     {:style {:color @time-color}}
-     time-str]))
+    [:div.example-clock time-str]))
 
-(defn color-input []
-  [:div.color-input
-   "Time color: "
-   [:input {:type "text"
-            :value @time-color
-            :on-change #(reset! time-color (-> % .-target .-value))}]])
+(defn message-input []
+  [:div.message-input
+   [:textarea {:type "text" :rows 3}]])
 
-(defn simple-example []
-  [:div
-   [greeting "The current time is:"]
-   [clock]
-   [color-input]])
+(defn chat-window []
+  [:div.chat-window
+   [greeting]
+   [message-input]
+   [clock]])
 
 (defn ^:export run []
-  (r/render [simple-example]
+  (r/render [chat-window]
             (js/document.getElementById "app")))

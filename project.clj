@@ -15,6 +15,7 @@
                  [reagent "0.7.0"]
                  [hiccup "1.0.5"]
                  [clj-http "3.7.0"]
+                 [cljs-http "0.1.44"]
                  [cheshire "5.8.0"]
                  [garden "1.3.3"]]
   :main ^:skip-aot virtual-me.core

@@ -4,7 +4,7 @@
 (defn index-page []
   (html5
     [:head
-     [:title "Hwllo World"]
+     [:title "My Virtual Assistant"]
      (include-css "/css/screen.css")]
     [:body
      [:header]

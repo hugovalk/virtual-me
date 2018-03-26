@@ -6,4 +6,6 @@
   (swagger-routes {:ui "/api-docs" :spec "/swagger.json"})
   (context "/api" []
     (GET "/ping/:id" [id]
-      (ok {:id id}))))
+      (ok (let [value {:id id}]
+            (Thread/sleep 1000)
+            value)))))
