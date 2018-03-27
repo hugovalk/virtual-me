@@ -14,15 +14,12 @@
 (defn greeting []
   (let [ping (r/atom "")]
     (r/create-class
-      {:component-did-mount
-       (fn []
-         (go (let [{{id :id} :body} (<! (http/get "/api/ping/Botty"))]
-               (prn id)
-               (reset! ping id))))
+      {:component-did-mount (fn []
+                              (go (let [{{id :id} :body} (<! (http/get "/api/ping/Botty"))]
+                                    (reset! ping id))))
        :display-name "greeting"
-       :reagent-render
-       (fn []
-         [:h2 "you are talking with " @ping])})))
+       :reagent-render (fn []
+                         [:h2 "you are talking with: " @ping])})))
 
 (defn clock []
   (let [time-str (-> @timer .toTimeString (clojure.string/split " ") first)]

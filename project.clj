@@ -17,7 +17,8 @@
                  [clj-http "3.7.0"]
                  [cljs-http "0.1.44"]
                  [cheshire "5.8.0"]
-                 [garden "1.3.3"]]
+                 [garden "1.3.3"]
+                 [figwheel "0.5.14"]]
   :main ^:skip-aot virtual-me.core
   :source-paths ["src/clj"]
   :resource-paths ["models/nl"
@@ -44,13 +45,23 @@
                                   [javax.servlet/servlet-api "2.5"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]}
   :ring {:handler virtual-me.web.routes/app}
-  :cljsbuild {:builds [{:compiler {:asset-path "js/out"
-                                   :main "virtual-me.js"
+  :cljsbuild {:builds {
+                       :prod
+                       {:compiler {:optimizations :advanced
+                                   :pretty-print false
+                                   :output-to "resources/public/js/main.js"}
+                        :source-paths ["src/cljs"]}
+                       :dev
+                       {:compiler {:asset-path "js/out"
+                                   :main "virtual-me.dev"
                                    :optimizations :none
+                                   :pretty-print true
+                                   :source-map true
+                                   :source-map-timestamp true
+                                   :cache-analysis true
                                    :output-to "resources/public/js/main.js"
                                    :output-dir "resources/public/js/out"}
-                        :id "dev"
-                        :source-paths ["src/cljs"]}]}
+                        :source-paths ["src/cljs" "src/cljs-dev"]}}}
   :garden {:builds [{:source-paths ["src/garden"]
                      :stylesheet virtual-me.css/screen
                      :compiler {:output-to "resources/public/css/screen.css"

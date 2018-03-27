@@ -7,5 +7,4 @@
   (context "/api" []
     (GET "/ping/:id" [id]
       (ok (let [value {:id id}]
-            (Thread/sleep 1000)
             value)))))
