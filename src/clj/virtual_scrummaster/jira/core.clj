@@ -2,8 +2,7 @@
   (:require [clj-http.client :as http])
   (:require [clj-http.cookies :as cookies])
   (:require [virtual-me.tools :as tools])
-  (:require [cheshire.core :as json])
-  (:import (java.util Scanner)))
+  (:require [cheshire.core :as json]))
 
 (def jira-password (atom nil))
 (def jira-user (atom nil))

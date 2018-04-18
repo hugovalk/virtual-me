@@ -20,7 +20,7 @@
                  [garden "1.3.3"]
                  [figwheel "0.5.14"]]
   :main ^:skip-aot virtual-me.core
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj", "src/scripts", "src/garden"]
   :resource-paths ["models/nl"
                    "models/en"
                    "resources"]
@@ -63,6 +63,7 @@
                                    :output-dir "resources/public/js/out"}
                         :source-paths ["src/cljs" "src/cljs-dev"]}}}
   :garden {:builds [{:source-paths ["src/garden"]
+                     :id "dev"
                      :stylesheet virtual-me.css/screen
                      :compiler {:output-to "resources/public/css/screen.css"
                                 :pretty-print? false}}]}
