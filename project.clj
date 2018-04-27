@@ -44,7 +44,9 @@
                                   [ring/ring-mock "0.3.2"]
                                   [javax.servlet/servlet-api "2.5"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]}
-  :ring {:handler virtual-me.web.routes/app}
+  :ring {:handler virtual-me.web.routes/app
+         :auto-reload? true
+         :auto-refresh? true}
   :cljsbuild {:builds {
                        :prod
                        {:compiler {:optimizations :advanced

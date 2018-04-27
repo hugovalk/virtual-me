@@ -7,8 +7,8 @@
      [:title "My Virtual Assistant"]
      (include-css "/css/screen.css")]
     [:body
-     [:header]
-     [:h1 "Hello World"]
+     [:header
+      [:h1 "My Virtual Assistant"]]
      [:div#app]
      [:script {:src "/js/main.js"}]
      [:script "virtual_me.js.run();"]]))
