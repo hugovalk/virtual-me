@@ -72,4 +72,4 @@
   :figwheel {:css-dirs ["resources/public/css"]
              :server-logfile "logs/figwheel_server.log"
              :ring-handler virtual-me.web.routes/app
-             :server-port 3000})
+             :server-port 8080})
