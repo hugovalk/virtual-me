@@ -21,10 +21,6 @@
 (defn read-models-path! []
   (swap-atom-via-prompt models-path "Models directory:"))
 
-(read-models-path!)
-(def models-en (str @models-path "/en"))
-(def models-nl (str @models-path "/nl"))
-
 (defn model-url [name]
   (str base-url "/" name ".bin"))
 
@@ -44,33 +40,41 @@
   (let [data (download-model! name)]
     (save-model! folder name data)))
 
-(def models
-  [{:name "en-chunker" :folder models-en}
-   {:name"en-ner-date" :folder models-en}
-   {:name"en-ner-location" :folder models-en}
-   {:name"en-ner-money" :folder models-en}
-   {:name"en-ner-organization" :folder models-en}
-   {:name"en-ner-percentage" :folder models-en}
-   {:name"en-ner-person" :folder models-en}
-   {:name"en-ner-time" :folder models-en}
-   {:name"en-parser-chunking" :folder models-en}
-   {:name"en-pos-maxent" :folder models-en}
-   {:name"en-pos-perceptron" :folder models-en}
-   {:name"en-sent" :folder models-en}
-   {:name"en-token" :folder models-en}
-   {:name"nl-ner-location" :folder models-nl}
-   {:name"nl-ner-misc" :folder models-nl}
-   {:name"nl-ner-organization" :folder models-nl}
-   {:name"nl-ner-person" :folder models-nl}
-   {:name"nl-pos-maxent" :folder models-nl}
-   {:name"nl-pos-perceptron" :folder models-nl}
-   {:name"nl-sent" :folder models-nl}
-   {:name"nl-token" :folder models-nl}])
+(defn models-en []
+  (str @models-path "/en"))
+(defn models-nl []
+  (str @models-path "/nl"))
 
-(last
-  (for [model models]
-    (let [{:keys [name folder]} model]
-      (println "downloading" name "...")
-      (fetch-model! folder name))))
+(defn models []
+  [{:name "en-chunker" :folder (models-en)}
+   {:name"en-ner-date" :folder (models-en)}
+   {:name"en-ner-location" :folder (models-en)}
+   {:name"en-ner-money" :folder (models-en)}
+   {:name"en-ner-organization" :folder (models-en)}
+   {:name"en-ner-percentage" :folder (models-en)}
+   {:name"en-ner-person" :folder (models-en)}
+   {:name"en-ner-time" :folder (models-en)}
+   {:name"en-parser-chunking" :folder (models-en)}
+   {:name"en-pos-maxent" :folder (models-en)}
+   {:name"en-pos-perceptron" :folder (models-en)}
+   {:name"en-sent" :folder (models-en)}
+   {:name"en-token" :folder (models-en)}
+   {:name"nl-ner-location" :folder (models-nl)}
+   {:name"nl-ner-misc" :folder (models-nl)}
+   {:name"nl-ner-organization" :folder (models-nl)}
+   {:name"nl-ner-person" :folder (models-nl)}
+   {:name"nl-pos-maxent" :folder (models-nl)}
+   {:name"nl-pos-perceptron" :folder (models-nl)}
+   {:name"nl-sent" :folder (models-nl)}
+   {:name"nl-token" :folder (models-nl)}])
 
-(println "done...")
+(defn -main []
+  (do
+    (read-models-path!)
+    (last
+      (for [model (models)]
+        (let [{:keys [name folder]} model]
+          (println "downloading" name "...")
+          (fetch-model! folder name))))
+
+    (println "done...")))
