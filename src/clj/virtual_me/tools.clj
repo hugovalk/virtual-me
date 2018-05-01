@@ -10,4 +10,4 @@
                (print prompt)
                (flush)
                (.next (new Scanner (System/in))))
-             (String/valueOf (.readPassword (System/console) prompt nil))))))
+             (String/valueOf (.readLine (System/console) prompt nil))))))
