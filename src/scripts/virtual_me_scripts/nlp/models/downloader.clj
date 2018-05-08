@@ -1,4 +1,4 @@
-(ns nlp.models.downloader
+(ns virtual-me-scripts.nlp.models.downloader
   (:require [clj-http.client :as http]
             [clojure.java.io :as io])
   (:import (java.util Scanner)))

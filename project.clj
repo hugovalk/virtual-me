@@ -33,7 +33,8 @@
         :resource-paths ["resources"]
         :bootclasspath false
         :jvm-opts ["-server" "-Dfile.encoding=utf-8" "$JVM_OPTS"]}
-  :profiles {:uberjar {:aot :all}
+  :profiles {:download-nlp-models {:main virtual-me-scripts.nlp.models.downloader}
+             :uberjar {:aot :all}
              :dev {:plugins [[lein-binplus "0.6.4"]
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
@@ -43,7 +44,8 @@
                    :dependencies [[midje "1.9.1"]
                                   [ring/ring-mock "0.3.2"]
                                   [javax.servlet/servlet-api "2.5"]]}}
-  :aliases {"test" ^:pass-through-help ["midje"]}
+  :aliases {"test" ^:pass-through-help ["midje"]
+            "download-nlp-models" ["with-profile" "download-nlp-models" "run"]}
   :ring {:handler virtual-me.web.routes/app
          :auto-reload? true
          :auto-refresh? true}
