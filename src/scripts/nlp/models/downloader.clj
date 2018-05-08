@@ -76,5 +76,4 @@
         (let [{:keys [name folder]} model]
           (println "downloading" name "...")
           (fetch-model! folder name))))
-
     (println "done...")))
