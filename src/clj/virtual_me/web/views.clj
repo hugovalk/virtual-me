@@ -5,7 +5,8 @@
   (html5
     [:head
      [:title "My Virtual Assistant"]
-     (include-css "/css/screen.css")]
+     (include-css "/css/screen.css")
+     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]]
     [:body
      [:header
       [:h1 "My Virtual Assistant"]]
