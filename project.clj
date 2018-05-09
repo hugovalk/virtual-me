@@ -47,6 +47,7 @@
   :aliases {"test" ^:pass-through-help ["midje"]
             "download-nlp-models" ["with-profile" "download-nlp-models" "run"]}
   :ring {:handler virtual-me.web.routes/app
+         :port 8080
          :auto-reload? true
          :auto-refresh? true}
   :cljsbuild {:builds {
