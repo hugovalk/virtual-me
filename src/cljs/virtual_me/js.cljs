@@ -9,12 +9,12 @@
 (enable-console-print!)
 
 (defn greeting []
-  (let [ping (r/atom "")]
+  (let [bot-name (r/atom "")]
     (r/create-class
-      {:component-did-mount #(go (let [{{id :id} :body} (<! (http/get "/api/ping/Botty"))]
-                                    (reset! ping id)))
+      {:component-did-mount #(go (let [{{name :name} :body} (<! (http/get "/api/bot/name"))]
+                                    (reset! bot-name name)))
        :display-name "greeting"
-       :reagent-render (fn [] [:h2 "you are talking with: " @ping])})))
+       :reagent-render (fn [] [:h2 "you are talking with: " @bot-name])})))
 
 (defn chat-window []
   [:div.chat-window
