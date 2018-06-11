@@ -9,4 +9,6 @@
     (GET "/ping/:id" [id]
       (ok {:id id}))
     (GET "/bot/name" []
-      (ok {:name bot/bot-name}))))
+      (ok {:name bot/bot-name}))
+    (POST "/bot/messages" [ms]
+      (ok {:messages (bot/respond ms)}))))
