@@ -1,9 +1,14 @@
 (ns virtual-me.bot.core
   (:require [clojure.spec.alpha :as spec]))
 
+(spec/def ::session-id uuid?)
+(spec/def ::timestamp inst?)
 (spec/def ::author string?)
 (spec/def ::message-content string?)
-(spec/def ::message (spec/keys :req [::author ::message-content]))
+(spec/def ::message (spec/keys :req [::session-id
+                                     ::timestamp
+                                     ::author
+                                     ::message-content]))
 
 (def bot-name "Botty")
 

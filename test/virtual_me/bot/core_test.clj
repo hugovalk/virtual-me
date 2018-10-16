@@ -1,8 +1,14 @@
 (ns virtual-me.bot.core-test
   (:use midje.sweet)
-  (:require [virtual-me.bot.core :as b]))
+  (:require [virtual-me.bot.core :as b])
+  (:import (java.util UUID)
+           (java.time Instant)))
 
-(defn ms [t] {::b/author "test" ::b/message-content t})
+(defn ms [t]
+  {::b/author          "test"
+   ::b/message-content t
+   ::b/session-id      (UUID/randomUUID)
+   ::b/timestamp       (Instant/now)})
 
 (facts "Basic bot facts"
   (fact "Bot echoes last message from messages list"
