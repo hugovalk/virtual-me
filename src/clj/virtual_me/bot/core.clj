@@ -19,3 +19,12 @@
 
 (defn respond [messages]
   (reduce calculate-response "" messages))
+
+;(defprotocol ChatBot
+;  (respond [bot])
+;  (receive [bot messages]))
+;
+;(defrecord EchoChatBot [session-store]
+;  ChatBot
+;  (respond [bot] ())
+;  (receive [bot messages]))
