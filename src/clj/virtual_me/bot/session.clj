@@ -1,4 +1,4 @@
-(ns virtual-me.bot.data
+(ns virtual-me.bot.session
   (:import (java.util UUID)))
 
 (defrecord Session [session-id name])

@@ -1,8 +1,8 @@
-(ns virtual-me.bot.data-test
-  (:use midje.sweet)
-  (:use [virtual-me.bot.data :as d]))
+(ns virtual-me.bot.session-test
+  (:use midje.sweet
+        virtual-me.bot.session))
 
-(facts "InMemoryChatSessionStore facts"
+(facts "The InMemoryChatSessionStore"
   (fact "Can create and store a new session"
     (let [store (atom {})
           repo (init-inmemory-chat-session-store store)
