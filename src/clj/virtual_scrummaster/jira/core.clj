@@ -11,10 +11,10 @@
 (def jira-cookies (atom (cookies/cookie-store)))
 
 (defn read-jira-user []
-  (tools/swap-atom-via-prompt jira-user "Jira user:"))
+  (tools/swap-atom-via-prompt! jira-user "Jira user:"))
 
 (defn read-jira-password []
-  (tools/swap-atom-via-prompt jira-password "Jira password:"))
+  (tools/swap-atom-via-prompt! jira-password "Jira password:"))
 
 (defn read-jira-credentials []
   (read-jira-user)

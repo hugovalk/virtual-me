@@ -33,7 +33,8 @@
         :resource-paths ["resources"]
         :bootclasspath false
         :jvm-opts ["-server" "-Dfile.encoding=utf-8" "$JVM_OPTS"]}
-  :profiles {:download-nlp-models {:main virtual-me-scripts.nlp.models.downloader}
+  :profiles {:download-nlp-models {:main virtual-me-scripts.nlp.models-downloader}
+             :train-w2v-models {:main virtual-me-scripts.nlp.w2v-trainer}
              :uberjar {:aot :all}
              :dev {:plugins [[lein-binplus "0.6.4"]
                              [lein-midje "3.2.1"]
@@ -44,9 +45,11 @@
                              [lein-ancient "0.6.15"]]
                    :dependencies [[midje "1.9.3"]
                                   [ring/ring-mock "0.3.2"]
-                                  [javax.servlet/servlet-api "2.5"]]}}
+                                  [javax.servlet/servlet-api "2.5"]
+                                  [org.clojure/test.check "0.9.0"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]
-            "download-nlp-models" ["with-profile" "download-nlp-models" "run"]}
+            "download-nlp-models" ["with-profile" "download-nlp-models" "run"]
+            "train-w2v-models" ["with-profile" "train-w2v-models" "run"]}
   :ring {:handler virtual-me.web.routes/app
          :port 8080
          :auto-reload? true

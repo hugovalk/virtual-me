@@ -1,25 +1,10 @@
-(ns virtual-me-scripts.nlp.models.downloader
+(ns virtual-me-scripts.nlp.models-downloader
   (:require [clj-http.client :as http]
-            [clojure.java.io :as io])
-  (:import (java.util Scanner)))
-
+            [clojure.java.io :as io]
+            [virtual-me.tools :as tools]))
 
 (def models-path (atom "."))
 (def base-url "http://opennlp.sourceforge.net/models-1.5")
-
-(defn swap-atom-via-prompt
-  [value prompt]
-  (swap! value
-         (fn [current-state]
-           (if (nil? (System/console))
-             (do
-               (print prompt)
-               (flush)
-               (.next (new Scanner (System/in))))
-             (String/valueOf (.readPassword (System/console) prompt nil))))))
-
-(defn read-models-path! []
-  (swap-atom-via-prompt models-path "Models directory:"))
 
 (defn model-url [name]
   (str base-url "/" name ".bin"))
@@ -70,7 +55,7 @@
 
 (defn -main []
   (do
-    (read-models-path!)
+    (tools/swap-atom-via-prompt! models-path "Models directory:")
     (last
       (for [model (models)]
         (let [{:keys [name folder]} model]

@@ -1,7 +1,7 @@
 (ns virtual-me.tools
   (:import (java.util Scanner)))
 
-(defn swap-atom-via-prompt
+(defn swap-atom-via-prompt!
   [value prompt]
   (swap! value
          (fn [current-state]
