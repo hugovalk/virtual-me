@@ -46,5 +46,5 @@
     (let [vec (word2vec (create-sentence-iterator @w2v-corpus-path)
                         (create-tokenizer-factory))]
       (.fit vec)
-      (WordVectorSerializer/writeWord2VecModel vec (str @model-path "word-vector-model.txt")))
+      (WordVectorSerializer/writeWord2VecModel vec (str @model-path "/word-vector-model.txt")))
     (println "done...")))
