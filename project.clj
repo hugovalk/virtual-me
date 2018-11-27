@@ -1,3 +1,6 @@
+;(require 'cemerick.pomegranate.aether)
+;(cemerick.pomegranate.aether/register-wagon-factory!
+;  "http" #(org.apache.maven.wagon.providers.http.HttpWagon.))
 (defproject virtual-me "0.1.0-SNAPSHOT"
   :description "AI personal assistant that can do boring tasks for you."
   :url "http://example.com/FIXME"
@@ -7,6 +10,11 @@
                  [org.clojure/clojurescript "1.10.339"]
                  [im.chit/hara.io.scheduler "2.5.10"]
                  [clojure-opennlp "0.5.0"]
+                 [org.deeplearning4j/deeplearning4j-ui_2.11 "1.0.0-beta3"
+                  :exclusions [org.eclipse.collections/eclipse-collections-forkjoin
+                               org.eclipse.collections/eclipse-collections-api
+                               org.eclipse.collections/eclipse-collections
+                               com.google.guava/guava]]
                  [org.deeplearning4j/deeplearning4j-core "1.0.0-beta3"]
                  [org.deeplearning4j/deeplearning4j-nlp "1.0.0-beta3"]
                  [org.nd4j/nd4j-native-platform "1.0.0-beta3"]
