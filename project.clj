@@ -23,6 +23,11 @@
                  [compojure "1.6.1"]
                  [metosin/compojure-api "1.1.12"]
                  [ring/ring-defaults "0.3.2"]
+                 [ring/ring-core "1.7.1"]
+                 [ring/ring-servlet "1.7.1"]
+                 [ring/ring-jetty-adapter "1.7.1"]
+                 [org.eclipse.jetty/jetty-server "9.4.12.v20180830"]
+                 [com.google.guava/guava "27.0-jre"]
                  [reagent "0.8.1"]
                  [hiccup "1.0.5"]
                  [clj-http "3.9.1"]
@@ -31,6 +36,7 @@
                  [garden "1.3.6"]
                  [figwheel "0.5.16"]]
   :main ^:skip-aot virtual-me.core
+  :hooks [leiningen.cljsbuild]
   :source-paths ["src/clj", "src/scripts", "src/garden"]
   :resource-paths ["models/nl"
                    "models/en"
@@ -46,7 +52,10 @@
         :jvm-opts ["-server" "-Dfile.encoding=utf-8" "$JVM_OPTS"]}
   :profiles {:download-nlp-models {:main virtual-me-scripts.nlp.models-downloader}
              :train-w2v-models {:main virtual-me-scripts.nlp.w2v-trainer}
-             :uberjar {:aot :all}
+             :uberjar {:prep-tasks ["compile"
+                                    ["garden" "once"]]
+                       :aot :all
+                       :main virtual-me.jetty}
              :dev {:plugins [[lein-binplus "0.6.4"]
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
@@ -70,7 +79,8 @@
                        {:compiler {:optimizations :advanced
                                    :pretty-print false
                                    :output-to "resources/public/js/main.js"}
-                        :source-paths ["src/cljs"]}
+                        :source-paths ["src/cljs"]
+                        :jar true}
                        :dev
                        {:compiler {:asset-path "js/out"
                                    :main "virtual-me.dev"
