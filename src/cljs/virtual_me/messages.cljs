@@ -13,8 +13,9 @@
                           :text message})))
 
 (defn show-messages []
-  (for [message @messages]
-    [:div {:key (:key message)} (:text message)]))
+  [:div.messages-list
+   (for [message @messages]
+     [:div {:key (:key message)} (:text message)])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")

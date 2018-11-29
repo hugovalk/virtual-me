@@ -19,8 +19,7 @@
 (defn chat-window []
   [:div.chat-window
    [greeting]
-   [:div.messages-list
-    (ms/show-messages)]
+   [ms/show-messages]
    [ms/message-input]
    [clock/clock]])
 
