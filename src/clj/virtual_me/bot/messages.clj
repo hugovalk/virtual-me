@@ -8,16 +8,18 @@
              messages))
 
 (defprotocol ChatMessageStore
-  (save [message-store messages]))
+  (save [message-store messages])
 ;(get-message [message-store message-id])
-;(query-by-session-id [message-store session-id]))
+  (query-by-session-id [message-store session-id]))
 
 (defrecord InMemoryChatMessageStore [store]
   ChatMessageStore
   (save [message-store messages]
     (swap! (:store message-store)
            (fn [store] (let [new-messages (group-by ::b/session-id messages)]
-                         (merge-messages store new-messages))))))
+                         (merge-messages store new-messages)))))
+  (query-by-session-id [message-store session-id]
+    (get @(:store message-store) session-id)))
 
 (defn init-inmemory-chat-message-store
   ([] (init-inmemory-chat-message-store (atom {})))
