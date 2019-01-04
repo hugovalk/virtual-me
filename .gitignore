@@ -1,6 +1,7 @@
 /target
 /resources/public/css
 /resources/public/js
+/dev-resources
 /models
 /classes
 /checkouts
@@ -16,3 +17,4 @@ pom.xml.asc
 *.iml
 test-app
 /logs
+.rebel_readline_history
