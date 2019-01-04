@@ -6,8 +6,8 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.339"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojurescript "1.10.439"]
                  [im.chit/hara.io.scheduler "2.5.10"]
                  [clojure-opennlp "0.5.0"]
                  [org.deeplearning4j/deeplearning4j-ui_2.11 "1.0.0-beta3"
@@ -26,7 +26,7 @@
                  [ring/ring-core "1.7.1"]
                  [ring/ring-servlet "1.7.1"]
                  [ring/ring-jetty-adapter "1.7.1"]
-                 [org.eclipse.jetty/jetty-server "9.4.12.v20180830"]
+                 [org.eclipse.jetty/jetty-server "9.4.14.v20181114"]
                  [com.google.guava/guava "27.0-jre"]
                  [reagent "0.8.1"]
                  [hiccup "1.0.5"]
@@ -34,7 +34,7 @@
                  [cljs-http "0.1.45"]
                  [cheshire "5.8.1"]
                  [garden "1.3.6"]
-                 [figwheel "0.5.16"]]
+                 [figwheel "0.5.18"]]
   :main ^:skip-aot virtual-me.core
   :hooks [leiningen.cljsbuild]
   :source-paths ["src/clj", "src/scripts", "src/garden"]
@@ -60,10 +60,10 @@
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
                              [lein-garden "0.3.0"]
-                             [lein-figwheel "0.5.16"]
+                             [lein-figwheel "0.5.18"]
                              [lein-ring "0.12.4"]
                              [lein-ancient "0.6.15"]]
-                   :dependencies [[midje "1.9.3"]
+                   :dependencies [[midje "1.9.4"]
                                   [ring/ring-mock "0.3.2"]
                                   [javax.servlet/servlet-api "2.5"]
                                   [org.clojure/test.check "0.9.0"]]}}
