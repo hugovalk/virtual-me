@@ -15,9 +15,9 @@
                                  {:name "messages" :description "Endpoints for exchanging messages with the chatbot."}
                                  {:name "sessions" :description "Endpoints for managing chat sessions."}]}})
   (context "/api" []
-    (GET "/ping/:id" [id]
+    (GET "/ping/:echo" [echo]
       :tags ["maintenance"]
-      (ok {:id id}))
+      (ok {:echo echo}))
     (context "/bot" []
       (GET "/name" []
         (ok {:name bot/bot-name}))

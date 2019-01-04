@@ -16,4 +16,4 @@
       (:status response) => 200))
   (fact "/api/ping/Botty returns Botty in id field"
     (let [response (app (-> (mock/request :get "/api/ping/Botty")))]
-      (json-get :id response)) => "Botty"))
+      (json-get :echo response)) => "Botty"))
