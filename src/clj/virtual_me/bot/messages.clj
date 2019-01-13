@@ -9,7 +9,6 @@
 
 (defprotocol ChatMessageStore
   (save [message-store messages])
-;(get-message [message-store message-id])
   (query-by-session-id [message-store session-id]))
 
 (defrecord InMemoryChatMessageStore [store]
