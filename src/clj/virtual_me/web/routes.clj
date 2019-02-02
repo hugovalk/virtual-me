@@ -3,6 +3,7 @@
         virtual-me.web.views
         virtual-me.web.api)
   (:require [compojure.route :as route]
+            [ring.middleware.reload :as reload]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]))
 
 (defroutes main-routes
@@ -10,7 +11,11 @@
   (route/resources "/")
   (route/not-found "Page not found"))
 
-(def app
-  (routes
-    (wrap-defaults api-routes api-defaults)
-    (wrap-defaults main-routes site-defaults)))
+(defn app [is-dev?]
+  (let [handler (routes
+                  (wrap-defaults api-routes api-defaults)
+                  (wrap-defaults main-routes site-defaults))]
+    (if is-dev?
+      (reload/wrap-reload handler)
+      handler)))
+

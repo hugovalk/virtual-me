@@ -24,9 +24,8 @@
                  [metosin/compojure-api "1.1.12"]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-core "1.7.1"]
-                 [ring/ring-servlet "1.7.1"]
-                 [ring/ring-jetty-adapter "1.7.1"]
-                 [org.eclipse.jetty/jetty-server "9.4.14.v20181114"]
+                 [ring/ring-devel "1.7.1"]
+                 [http-kit "2.3.0"]
                  [com.google.guava/guava "27.0-jre"]
                  [reagent "0.8.1"]
                  [hiccup "1.0.5"]
@@ -35,8 +34,7 @@
                  [cheshire "5.8.1"]
                  [garden "1.3.6"]
                  [figwheel "0.5.18"]]
-  :main ^:skip-aot virtual-me.core
-  :hooks [leiningen.cljsbuild]
+  :main virtual-me.httpkit
   :source-paths ["src/clj", "src/scripts", "src/garden"]
   :resource-paths ["models/nl"
                    "models/en"
@@ -53,9 +51,10 @@
   :profiles {:download-nlp-models {:main virtual-me-scripts.nlp.models-downloader}
              :train-w2v-models {:main virtual-me-scripts.nlp.w2v-trainer}
              :uberjar {:prep-tasks ["compile"
-                                    ["garden" "once"]]
+                                    ["garden" "once"]
+                                    ["cljsbuild" "once"]]
                        :aot :all
-                       :main virtual-me.jetty}
+                       :main virtual-me.httpkit}
              :dev {:plugins [[lein-binplus "0.6.4"]
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
