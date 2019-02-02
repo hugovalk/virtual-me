@@ -26,6 +26,7 @@
                  [ring/ring-core "1.7.1"]
                  [ring/ring-devel "1.7.1"]
                  [http-kit "2.3.0"]
+                 [com.taoensso/sente "1.13.1"]
                  [com.google.guava/guava "27.0-jre"]
                  [reagent "0.8.1"]
                  [hiccup "1.0.5"]
