@@ -1,36 +1,36 @@
-# virtual-me
+# Virtual Me
 
-FIXME: description
+Virtual Me is a playground application that implements a chat bot with some
+intelligence. It is fully written in Clojure and ClojureScript.
 
-## Installation
+## Running the application
 
-Download from http://example.com/FIXME.
+Clone the project. Then run:
+
+    $ lein run
+
+It will start the application on https://localhost:8080
+
+If you run:
+
+    $ lein figwheel
+
+It will reload server and client code whenever you make a change.
 
 ## Usage
 
-FIXME: explanation
+If you want to build the app to run it, first run:
 
-    $ java -jar virtual-me-0.1.0-standalone.jar [args]
+    $ lein uberjar
 
-## Options
+This will produce a standalone jar that can be run with:
 
-FIXME: listing of options this app accepts.
+    $ java -jar virtual-me-0.1.0-standalone.jar
 
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Hugo Valk
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
