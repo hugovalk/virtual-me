@@ -50,14 +50,17 @@
         :tags ["messages"]
         (ok {:messages (bot/respond ms)})))))
 
+(defn app
+  ([] (app false))
+  ([is-dev?]
+   (let [handler (routes
+                   (wrap-defaults api-routes site-defaults)
+                   (wrap-defaults main-routes site-defaults))]
+     (if is-dev?
+       (reload/wrap-reload handler)
+       handler))))
 
-(defn app [is-dev?]
-  (let [handler (routes
-                  (wrap-defaults api-routes site-defaults)
-                  (wrap-defaults main-routes site-defaults))]
-    (if is-dev?
-      (reload/wrap-reload handler)
-      handler)))
+(def app-figwheel (app true))
 
 (defn start-example-broadcaster!
   "As an example of server>user async pushes, setup a loop to broadcast an

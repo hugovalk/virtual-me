@@ -6,8 +6,6 @@
             [virtual-me.clock :as clock]
             [virtual-me.messages :as ms]))
 
-(enable-console-print!)
-
 (defn greeting []
   (let [bot-name (r/atom "")]
     (r/create-class

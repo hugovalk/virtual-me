@@ -91,6 +91,8 @@
                                    :cache-analysis true
                                    :output-to "resources/public/js/main.js"
                                    :output-dir "resources/public/js/out"}
+                        :figwheel {:websocket-url "ws://[[client-hostname]]:[[server-port]]/figwheel-ws"
+                                   :on-jsload "virtual-me.dev/fig-reload"}
                         :source-paths ["src/cljs" "src/cljs-dev"]}}}
   :garden {:builds [{:source-paths ["src/garden"]
                      :id "dev"
@@ -99,5 +101,5 @@
                                 :pretty-print? false}}]}
   :figwheel {:css-dirs ["resources/public/css"]
              :server-logfile "logs/figwheel_server.log"
-             :ring-handler virtual-me.web.routes/app
+             :ring-handler virtual-me.web.routes/app-figwheel
              :server-port 8080})

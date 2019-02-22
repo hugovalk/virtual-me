@@ -1,5 +1,8 @@
 (ns virtual-me.dev
   (:require [virtual-me.js]
-            [figwheel.client :as fw]))
+            [reagent.core :as r]))
 
-(fw/start {:websocket-url "ws://localhost:8080/figwheel-ws"})
+(enable-console-print!)
+
+(defn fig-reload []
+  (r/force-update-all))
