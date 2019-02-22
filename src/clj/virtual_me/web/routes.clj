@@ -7,7 +7,8 @@
             [ring.util.http-response :refer :all]
             [ring.middleware.reload :as reload]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
-            [virtual-me.web.views :refer :all]))
+            [virtual-me.web.views :refer :all]
+            [clojure.core.async :as async  :refer [<! <!! >! >!! put! chan go go-loop]]))
 
 
 (let [{:keys [ch-recv send-fn connected-uids
@@ -58,3 +59,25 @@
       (reload/wrap-reload handler)
       handler)))
 
+(defn start-example-broadcaster!
+  "As an example of server>user async pushes, setup a loop to broadcast an
+  event to all connected users every 10 seconds"
+  []
+  (let [broadcast!
+        (fn [i]
+          (let [uids (:any @connected-uids)]
+            (println "Broadcasting server>user: %s uids" (count uids))
+            (doseq [uid uids]
+              (chsk-send! uid
+                          [:some/broadcast
+                           {:what-is-this "An async broadcast pushed from server"
+                            :how-often "Every 10 seconds"
+                            :to-whom uid
+                            :i i}]))))]
+
+    (go-loop [i 0]
+             (<! (async/timeout 10000))
+             (broadcast! i)
+             (recur (inc i)))))
+
+;(start-example-broadcaster!)
