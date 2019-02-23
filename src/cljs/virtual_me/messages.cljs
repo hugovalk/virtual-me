@@ -22,7 +22,7 @@
   (reset! current-message new))
 
 (defn to-message [text]
-  {:id (random-uuid)
+  {:virtual-me.bot.core/message-id (random-uuid)
    :virtual-me.bot.core/session-id (random-uuid)
    :virtual-me.bot.core/author "Hugo"
    :virtual-me.bot.core/content text})
@@ -45,7 +45,7 @@
 (defn show-messages []
   [:div.messages-list
    (for [message @messages]
-     [:div {:id (:id message)} (:virtual-me.bot.core/content message)])])
+     [:div {:key (str (:virtual-me.bot.core/message-id message))} (:virtual-me.bot.core/content message)])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")
