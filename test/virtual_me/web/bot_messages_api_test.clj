@@ -6,6 +6,6 @@
 
 (facts "Tests for the /bot/messages api."
   (fact "posting an empty array of messages returns 200 ok"
-    (let [response (app (-> (mock/request :post "/api/bot/messages")
-                            (mock/json-body {:messages []})))]
+    (let [response ((app false) (-> (mock/request :post "/api/bot/messages")
+                                    (mock/json-body {:messages []})))]
       (:status response) => 200)))

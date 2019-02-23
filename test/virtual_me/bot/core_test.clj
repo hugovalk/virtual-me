@@ -8,10 +8,13 @@
   {::b/author          "test"
    ::b/content         t
    ::b/session-id      (UUID/randomUUID)
+   ::b/message-id      (UUID/randomUUID)
    ::b/timestamp       (Instant/now)})
 
 (facts "Basic bot facts"
   (fact "Bot echoes last message from messages list"
-    (b/respond [(ms "test") (ms "test2") (ms "latest")]) => {::b/author "Botty" ::b/content "latest"})
+    (let [response (b/respond [(ms "test") (ms "test2") (ms "latest")])]
+      (::b/author response) => "Botty"
+      (::b/content response) => "latest"))
   (fact "Function respond fails on invalid message"
     (b/respond ["test"]) => (throws IllegalArgumentException)))

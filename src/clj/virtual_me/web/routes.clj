@@ -54,7 +54,7 @@
   ([] (app false))
   ([is-dev?]
    (let [handler (routes
-                   (wrap-defaults api-routes site-defaults)
+                   (wrap-defaults api-routes api-defaults)
                    (wrap-defaults main-routes site-defaults))]
      (if is-dev?
        (reload/wrap-reload handler)

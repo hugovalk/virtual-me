@@ -12,8 +12,8 @@
 
 (facts "Ping service tests"
   (fact "/api/ping service returns OK"
-    (let [response (app (-> (mock/request :get "/api/ping/test")))]
+    (let [response ((app false) (-> (mock/request :get "/api/ping/test")))]
       (:status response) => 200))
   (fact "/api/ping/Botty returns Botty in id field"
-    (let [response (app (-> (mock/request :get "/api/ping/Botty")))]
+    (let [response ((app false) (-> (mock/request :get "/api/ping/Botty")))]
       (json-get :echo response)) => "Botty"))
