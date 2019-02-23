@@ -60,27 +60,39 @@
        (reload/wrap-reload handler)
        handler))))
 
-(def app-figwheel (app true))
+(defmulti -event-msg-handler
+          "Multimethod to handle Sente `event-msg`s"
+          :id) ; Dispatch on event-id
 
-(defn start-example-broadcaster!
-  "As an example of server>user async pushes, setup a loop to broadcast an
-  event to all connected users every 10 seconds"
-  []
-  (let [broadcast!
-        (fn [i]
-          (let [uids (:any @connected-uids)]
-            (println "Broadcasting server>user: %s uids" (count uids))
-            (doseq [uid uids]
-              (chsk-send! uid
-                          [:some/broadcast
-                           {:what-is-this "An async broadcast pushed from server"
-                            :how-often "Every 10 seconds"
-                            :to-whom uid
-                            :i i}]))))]
+(defn event-msg-handler
+  "Wraps `-event-msg-handler` with logging, error catching, etc."
+  [{:as ev-msg :keys [id ?data event]}]
+  (-event-msg-handler ev-msg)) ; Handle event-msgs on a single thread
+  ;; (future (-event-msg-handler ev-msg)) ; Handle event-msgs on a thread pool
 
-    (go-loop [i 0]
-             (<! (async/timeout 10000))
-             (broadcast! i)
-             (recur (inc i)))))
+(defmethod -event-msg-handler
+  :default ; Default/fallback case (no other matching handler)
+  [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
+  (let [session (:session ring-req)
+        uid     (:uid     session)]
+    (println "Unhandled event: %s" event)
+    (when ?reply-fn
+      (?reply-fn {:umatched-event-as-echoed-from-server event}))))
 
-;(start-example-broadcaster!)
+(defmethod -event-msg-handler :bot/:message
+  [{:as ev-msg :keys [event ?reply-fn]}]
+  (let [[id message] event]
+    (println (str "Calculating response for" event))
+    (?reply-fn (bot/respond (list message)))))
+
+(defonce router_ (atom nil))
+(defn  stop-router! [] (when-let [stop-fn @router_] (stop-fn)))
+(defn start-router! []
+  (stop-router!)
+  (reset! router_
+          (sente/start-server-chsk-router!
+            ch-chsk event-msg-handler)))
+
+(def app-figwheel
+  (let [r (start-router!)]
+    (app true)))

@@ -7,8 +7,8 @@
     [taoensso.sente  :as sente :refer (cb-success?)]))
 
 (let [{:keys [chsk ch-recv send-fn state]}
-      (sente/make-channel-socket! "/chsk" ; Note the same path as before
-                                  {:type :auto})] ; e/o #{:auto :ajax :ws}
+      (sente/make-channel-socket! "/chsk"
+                                  {:type :auto})]
 
   (def chsk       chsk)
   (def ch-chsk    ch-recv) ; ChannelSocket's receive channel
@@ -21,15 +21,31 @@
 (defn update-current-message [new]
   (reset! current-message new))
 
-(defn push-message [message]
-  (reset! messages (conj @messages
-                         {:key (+ 1 (reduce (fn [a,b] (max a (:key b))) 0 @messages))
-                          :text message})))
+(defn to-message [text]
+  {:id (random-uuid)
+   :virtual-me.bot.core/session-id (random-uuid)
+   :virtual-me.bot.core/author "Hugo"
+   :virtual-me.bot.core/content text})
+
+(defn append-to-conversation [message]
+  (reset! messages (conj @messages message)))
+
+(defn push-message [text]
+  (let [message (to-message text)]
+    (println message)
+    (chsk-send!
+      [:bot/:message message]
+      8000
+      (fn [reply]
+        (if (sente/cb-success? reply)
+          (append-to-conversation reply)
+          (println "Booh!"))))
+    (append-to-conversation message)))
 
 (defn show-messages []
   [:div.messages-list
    (for [message @messages]
-     [:div {:key (:key message)} (:text message)])])
+     [:div {:id (:id message)} (:virtual-me.bot.core/content message)])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")
@@ -44,6 +60,3 @@
                :value @current-message
                :on-change #(update-current-message (-> % .-target .-value))
                :on-key-press #(push-current-message-on-key-press %)}]])
-
-
-

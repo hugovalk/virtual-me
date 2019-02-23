@@ -6,7 +6,6 @@
 (spec/def ::author string?)
 (spec/def ::content string?)
 (spec/def ::message (spec/keys :req [::session-id
-                                     ::timestamp
                                      ::author
                                      ::content]))
 
