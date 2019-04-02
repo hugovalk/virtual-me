@@ -7,7 +7,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [org.clojure/clojurescript "1.10.439"]
+                 [org.clojure/clojurescript "1.10.520"]
                  [im.chit/hara.io.scheduler "2.5.10"]
                  [clojure-opennlp "0.5.0"]
                  [org.deeplearning4j/deeplearning4j-ui_2.11 "1.0.0-beta3"
@@ -31,7 +31,7 @@
                  [reagent "0.8.1"]
                  [hiccup "1.0.5"]
                  [clj-http "3.9.1"]
-                 [cljs-http "0.1.45"]
+                 [cljs-http "0.1.46"]
                  [cheshire "5.8.1"]
                  [garden "1.3.6"]
                  [figwheel "0.5.18"]]
@@ -56,14 +56,15 @@
                                     ["cljsbuild" "once"]]
                        :aot :all
                        :main virtual-me.httpkit}
-             :dev {:plugins [[lein-binplus "0.6.4"]
+             :dev {:plugins [[lein-binplus "0.6.5"]
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
                              [lein-garden "0.3.0"]
                              [lein-figwheel "0.5.18"]
-                             [lein-ring "0.12.4"]
-                             [lein-ancient "0.6.15"]]
-                   :dependencies [[midje "1.9.4"]
+                             [lein-ring "0.12.5"]
+                             [lein-ancient "0.6.15"]
+                             [cider/cider-nrepl "0.21.1"]]
+                   :dependencies [[midje "1.9.6"]
                                   [ring/ring-mock "0.3.2"]
                                   [javax.servlet/servlet-api "2.5"]
                                   [org.clojure/test.check "0.9.0"]]}}
