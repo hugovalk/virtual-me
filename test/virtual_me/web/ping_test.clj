@@ -1,8 +1,8 @@
 (ns virtual-me.web.ping-test
-  (:use midje.sweet
-        virtual-me.web.routes)
+  (:use midje.sweet)
   (:require [ring.mock.request :as mock]
-            [cheshire.core :as cheshire]))
+            [cheshire.core :as cheshire]
+            [virtual-me.httpkit :refer [app]]))
 
 (defn parse-json [request]
   (cheshire/parse-string (slurp (:body request)) true))

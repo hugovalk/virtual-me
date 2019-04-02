@@ -71,7 +71,7 @@
   :aliases {"test" ^:pass-through-help ["midje"]
             "download-nlp-models" ["with-profile" "download-nlp-models" "run"]
             "train-w2v-models" ["with-profile" "train-w2v-models" "run"]}
-  :ring {:handler virtual-me.web.routes/app
+  :ring {:handler virtual-me.httpkit/app
          :port 8080
          :auto-reload? true
          :auto-refresh? true}
@@ -102,5 +102,5 @@
                                 :pretty-print? false}}]}
   :figwheel {:css-dirs ["resources/public/css"]
              :server-logfile "logs/figwheel_server.log"
-             :ring-handler virtual-me.web.routes/app-figwheel
+             :ring-handler virtual-me.httpkit/app-figwheel
              :server-port 8080})

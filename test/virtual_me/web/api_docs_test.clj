@@ -1,7 +1,7 @@
 (ns virtual-me.web.api-docs-test
-  (:use midje.sweet
-        virtual-me.web.routes)
-  (:require [ring.mock.request :as mock]))
+  (:use midje.sweet)
+  (:require [ring.mock.request :as mock]
+            [virtual-me.httpkit :refer [app]]))
 
 (facts "Swagger API docs tests"
   (fact "/swagger.json exists"
