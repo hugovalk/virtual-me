@@ -21,6 +21,7 @@
                  [org.clojure/tools.logging "0.4.1"]
                  [ch.qos.logback/logback-classic "1.2.3"]
                  [compojure "1.6.1"]
+                 [org.flatland/ordered "1.5.7"]
                  [metosin/compojure-api "1.1.12"]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-core "1.7.1"]
