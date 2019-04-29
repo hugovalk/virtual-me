@@ -1,8 +1,11 @@
 (ns virtual-me.web.bot-ws
   (:require [taoensso.sente :as sente]
+            [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.core :as bot]
+            [virtual-me.bot.messages :as ms]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
-            [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]]))
+            [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]])
+  (:import (java.util UUID)))
 
 (let [{:keys [ch-recv send-fn connected-uids
               ajax-post-fn ajax-get-or-ws-handshake-fn]}
@@ -13,6 +16,8 @@
   (def ch-chsk ch-recv)                                     ; ChannelSocket's receive channel
   (def chsk-send! send-fn)                                  ; ChannelSocket's send API fn
   (def connected-uids connected-uids))                      ; Watchable, read-only atom
+
+(def bot (bot/->EchoChatBot (ms/init-inmemory-chat-message-store)))
 
 (defmulti -event-msg-handler
           "Multimethod to handle Sente `event-msg`s"
@@ -33,11 +38,13 @@
     (when ?reply-fn
       (?reply-fn {:umatched-event-as-echoed-from-server event}))))
 
-(defmethod -event-msg-handler :bot/:message
+(def session (UUID/randomUUID))
+(defmethod -event-msg-handler :bspec/:message
   [{:as ev-msg :keys [event ?reply-fn]}]
   (let [[id message] event]
     (println (str "Calculating response for" event))
-    (?reply-fn (bot/respond (list message)))))
+    (bot/receive bot session (list message))
+    (?reply-fn (bot/respond bot session))))
 
 (defonce router_ (atom nil))
 (defn stop-router! [] (when-let [stop-fn @router_] (stop-fn)))

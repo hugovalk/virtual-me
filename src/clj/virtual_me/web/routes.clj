@@ -31,10 +31,7 @@
       (ok {:echo echo}))
     (context "/bot" []
       (GET "/name" []
-        (ok {:name bot/bot-name}))
-      (POST "/messages" [ms]
-        :tags ["messages"]
-        (ok {:messages (bot/respond ms)})))))
+        (ok {:name bot/bot-name})))))
 
 (def handler
   (routes

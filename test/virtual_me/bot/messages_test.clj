@@ -1,9 +1,8 @@
 (ns virtual-me.bot.messages-test
   (:use midje.sweet
         virtual-me.bot.messages)
-  (:require [virtual-me.bot.core :as b])
-  (:import (java.util UUID)
-           (java.time Instant)))
+  (:require [virtual-me.bot.specs :as bspec])
+  (:import (java.util UUID)))
 
 (defn rand-str [len]
   (apply str (take len (repeatedly #(char (+ (rand 26) 65))))))
@@ -12,10 +11,10 @@
   ([] (msg (UUID/randomUUID) (rand-str 20)))
   ([session-id] (msg session-id (rand-str 20)))
   ([session-id content]
-   {::b/session-id session-id
-    ::b/author     "Hugo"
-    ::b/timestamp  (Instant/now)
-    ::b/content    content}))
+   {::bspec/session-id session-id
+    ::bspec/message-id (UUID/randomUUID)
+    ::bspec/author     "Hugo"
+    ::bspec/content    content}))
 
 (facts "The InMemoryChatMessageStore"
   (fact "Can save message to the collection with the correct session id"
@@ -25,6 +24,13 @@
           message (msg session-id)]
       (save repo [message])
       (get @store session-id) => [message]))
+  (fact "Will not save anything when an invalid message is sent"
+    (let [store (atom {})
+          repo (init-inmemory-chat-message-store store)
+          session-id (UUID/randomUUID)
+          message (msg session-id)]
+      (save repo [message {}]) => (throws IllegalArgumentException)
+      (get @store session-id) => nil))
   (fact "Can retrieve the messages from a session"
     (let [repo (init-inmemory-chat-message-store)
           id1 (UUID/randomUUID)
