@@ -38,6 +38,7 @@
                  [figwheel "0.5.18"]]
   :main virtual-me.httpkit
   :source-paths ["src/clj", "src/scripts", "src/garden"]
+  :test-paths ["test/clj"]
   :resource-paths ["models/nl"
                    "models/en"
                    "resources"]
@@ -104,4 +105,5 @@
   :figwheel {:css-dirs ["resources/public/css"]
              :server-logfile "logs/figwheel_server.log"
              :ring-handler virtual-me.httpkit/app-figwheel
-             :server-port 8080})
+             :server-port 8080
+             :nrepl-port 7888})
