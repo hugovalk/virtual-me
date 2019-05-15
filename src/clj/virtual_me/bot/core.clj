@@ -6,7 +6,7 @@
 
 (def bot-name "Botty")
 
-(defn calculate-response [result next-message]
+(defn echo-response [result next-message]
   {::bspec/message-id (UUID/randomUUID)
    ::bspec/author     bot-name
    ::bspec/content    (::bspec/content next-message)
@@ -17,14 +17,16 @@
   (receive [_ session messages]))
 
 (defn default [session]
-      {::bspec/author bot-name
+      {::bspec/session-id session
        ::bspec/message-id (UUID/randomUUID)
-       ::bspec/content "I don't understand."
-       ::bspec/session-id session})
+       ::bspec/author bot-name
+       ::bspec/content "I don't understand."})
 
 (defrecord EchoChatBot [session-store]
   ChatBot
   (respond [_ session]
-    (reduce calculate-response (default session) (ms/query-by-session-id session-store session)))
+    (let [answer (reduce echo-response (default session) (ms/query-by-session-id session-store session))]
+      (ms/save session-store [answer])
+      answer))
   (receive [_ session messages]
     (ms/save session-store messages)))
