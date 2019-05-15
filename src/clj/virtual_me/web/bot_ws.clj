@@ -39,12 +39,13 @@
       (?reply-fn {:umatched-event-as-echoed-from-server event}))))
 
 (def session (UUID/randomUUID))
-(defmethod -event-msg-handler :bspec/:message
+(defmethod -event-msg-handler ::bspec/message
   [{:as ev-msg :keys [event ?reply-fn]}]
   (let [[id message] event]
     (println (str "Calculating response for" event))
-    (bot/receive bot session (list message))
-    (?reply-fn (bot/respond bot session))))
+    (let [message-session (assoc message ::bspec/session-id session)]
+      (bot/receive bot session [message-session])
+      (?reply-fn (bot/respond bot session)))))
 
 (defonce router_ (atom nil))
 (defn stop-router! [] (when-let [stop-fn @router_] (stop-fn)))

@@ -4,7 +4,6 @@
             [virtual-me.bot.messages :as ms])
   (:import (java.util UUID)))
 
-
 (def bot-name "Botty")
 
 (defn calculate-response [result next-message]

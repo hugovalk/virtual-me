@@ -22,10 +22,10 @@
   (reset! current-message new))
 
 (defn to-message [text]
-  {:virtual-me.bot.core/message-id (random-uuid)
-   :virtual-me.bot.core/session-id (random-uuid)
-   :virtual-me.bot.core/author "Hugo"
-   :virtual-me.bot.core/content text})
+  {:virtual-me.bot.specs/message-id (random-uuid)
+   :virtual-me.bot.specs/session-id (random-uuid)
+   :virtual-me.bot.specs/author "Hugo"
+   :virtual-me.bot.specs/content text})
 
 (defn append-to-conversation [message]
   (reset! messages (conj @messages message)))
@@ -34,7 +34,7 @@
   (let [message (to-message text)]
     (println message)
     (chsk-send!
-      [:bot/:message message]
+      [:virtual-me.bot.specs/message message]
       8000
       (fn [reply]
         (if (sente/cb-success? reply)
@@ -45,7 +45,7 @@
 (defn show-messages []
   [:div.messages-list
    (for [message @messages]
-     [:div {:key (str (:virtual-me.bot.core/message-id message))} (:virtual-me.bot.core/content message)])])
+     [:div {:key (str (:virtual-me.bot.specs/message-id message))} (:virtual-me.bot.specs/content message)])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")
