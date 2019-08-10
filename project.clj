@@ -62,7 +62,7 @@
                              [lein-midje "3.2.1"]
                              [lein-cljsbuild "1.1.7"]
                              [lein-garden "0.3.0"]
-                             [lein-figwheel "0.5.18"]
+                             [lein-figwheel "0.5.19"]
                              [lein-ring "0.12.5"]
                              [lein-ancient "0.6.15"]]
                    :dependencies [[midje "1.9.9"]
