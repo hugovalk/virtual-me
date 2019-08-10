@@ -53,5 +53,4 @@
   (stop-router!)
   (reset! router_
           (sente/start-server-chsk-router!
-            ch-chsk event-msg-handler)))
-
+           ch-chsk event-msg-handler)))
