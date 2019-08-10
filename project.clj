@@ -6,7 +6,7 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.10.0"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.520"]
                  [im.chit/hara.io.scheduler "2.5.10"]
                  [clojure-opennlp "0.5.0"]
@@ -18,7 +18,7 @@
                  [org.deeplearning4j/deeplearning4j-core "1.0.0-beta3"]
                  [org.deeplearning4j/deeplearning4j-nlp "1.0.0-beta3"]
                  [org.nd4j/nd4j-native-platform "1.0.0-beta3"]
-                 [org.clojure/tools.logging "0.5.0-alpha.1"]
+                 [org.clojure/tools.logging "0.5.0"]
                  [ch.qos.logback/logback-classic "1.2.3"]
                  [compojure "1.6.1"]
                  [org.flatland/ordered "1.5.7"]
@@ -33,9 +33,9 @@
                  [hiccup "1.0.5"]
                  [clj-http "3.10.0"]
                  [cljs-http "0.1.46"]
-                 [cheshire "5.8.1"]
+                 [cheshire "5.9.0"]
                  [garden "1.3.9"]
-                 [figwheel "0.5.18"]]
+                 [figwheel "0.5.19"]]
   :main virtual-me.httpkit
   :source-paths ["src/clj", "src/scripts", "src/garden"]
   :test-paths ["test/clj"]
@@ -64,12 +64,13 @@
                              [lein-garden "0.3.0"]
                              [lein-figwheel "0.5.18"]
                              [lein-ring "0.12.5"]
-                             [lein-ancient "0.6.15"]
-                             [cider/cider-nrepl "0.21.1"]]
-                   :dependencies [[midje "1.9.8"]
+                             [lein-ancient "0.6.15"]]
+                   :dependencies [[midje "1.9.9"]
                                   [ring/ring-mock "0.4.0"]
                                   [javax.servlet/servlet-api "2.5"]
-                                  [org.clojure/test.check "0.9.0"]]}}
+                                  [org.clojure/test.check "0.9.0"]
+                                  [cider/cider-nrepl "0.21.1"]
+                                  [figwheel-sidecar "0.5.19"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]
             "download-nlp-models" ["with-profile" "download-nlp-models" "run"]
             "train-w2v-models" ["with-profile" "train-w2v-models" "run"]}
