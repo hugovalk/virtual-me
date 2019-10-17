@@ -68,8 +68,8 @@
                    :dependencies [[midje "1.9.9"]
                                   [ring/ring-mock "0.4.0"]
                                   [javax.servlet/servlet-api "2.5"]
-                                  [org.clojure/test.check "0.9.0"]
-                                  [cider/cider-nrepl "0.21.1"]
+                                  [org.clojure/test.check "0.10.0"]
+                                  [cider/cider-nrepl "0.22.4"]
                                   [figwheel-sidecar "0.5.19"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]
             "download-nlp-models" ["with-profile" "download-nlp-models" "run"]
