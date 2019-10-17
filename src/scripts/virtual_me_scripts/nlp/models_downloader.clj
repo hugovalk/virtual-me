@@ -59,6 +59,6 @@
     (last
       (for [model (models)]
         (let [{:keys [name folder]} model]
-          (println "downloading" name "...")
+          (println "downloading" name "in" folder "...")
           (fetch-model! folder name))))
     (println "done...")))

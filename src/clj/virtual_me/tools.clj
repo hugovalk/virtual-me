@@ -18,7 +18,8 @@
 
 (defn swap-atom-via-prompt!
   [value prompt]
-  (swap! value #{(do-prompt! prompt)}))
+  (let [new-value (do-prompt! prompt)]
+    (swap! value (fn [e] new-value))))
 
 (defn change-path!
   [value description]
