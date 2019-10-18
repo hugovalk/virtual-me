@@ -34,8 +34,7 @@
                  [clj-http "3.10.0"]
                  [cljs-http "0.1.46"]
                  [cheshire "5.9.0"]
-                 [garden "1.3.9"]
-                 [figwheel "0.5.19"]]
+                 [migratus "1.2.6"]]
   :main virtual-me.httpkit
   :source-paths ["src/clj", "src/scripts", "src/garden"]
   :test-paths ["test/clj"]
@@ -66,6 +65,8 @@
                              [lein-ring "0.12.5"]
                              [lein-ancient "0.6.15"]]
                    :dependencies [[midje "1.9.9"]
+                                  [garden "1.3.9"]
+                                  [figwheel "0.5.19"]
                                   [ring/ring-mock "0.4.0"]
                                   [javax.servlet/servlet-api "2.5"]
                                   [org.clojure/test.check "0.10.0"]

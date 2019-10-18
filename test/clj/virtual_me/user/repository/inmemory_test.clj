@@ -17,7 +17,7 @@
                    repo (init-inmemory-user-store)
                    user-id (::uspec/user-id (user/new-user repo user-name))]
                (user/query-by-user-name repo user-name) => {::uspec/user-id user-id
-                                                       ::uspec/user-name user-name}))
+                                                            ::uspec/user-name user-name}))
        (fact "Query by non-existing username returns nil"
              (let [repo (init-inmemory-user-store)]
                (user/query-by-user-name repo "nonexisting") => nil))
