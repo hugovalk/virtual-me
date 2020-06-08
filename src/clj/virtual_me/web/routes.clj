@@ -10,6 +10,8 @@
 (defroutes main-routes
   (GET "/" [] (index-page))
   (route/resources "/")
+  (GET "/chsk" req (bot-ws/ring-ajax-get-or-ws-handshake req))
+  (POST "/chsk" req (bot-ws/ring-ajax-post req))
   (route/not-found "Page not found"))
 
 (defapi api-routes
@@ -23,8 +25,6 @@
                           :tags [{:name "maintenance" :description "Endpoints used for system maintenance."}
                                  {:name "messages" :description "Endpoints for exchanging messages with the chatbot."}
                                  {:name "sessions" :description "Endpoints for managing chat sessions."}]}})
-  (GET "/chsk" req (bot-ws/ring-ajax-get-or-ws-handshake req))
-  (POST "/chsk" req (bot-ws/ring-ajax-post req))
   (context "/api" []
     (GET "/ping/:echo" [echo]
       :tags ["maintenance"]
@@ -32,6 +32,14 @@
     (context "/bot" []
       (GET "/name" []
         (ok {:name bot/bot-name})))))
+;
+;(defroutes ring-routes
+;  (GET  "/"      ring-req (landing-pg-handler            ring-req))
+;  (GET  "/chsk"  ring-req (ring-ajax-get-or-ws-handshake ring-req))
+;  (POST "/chsk"  ring-req (ring-ajax-post                ring-req))
+;  (POST "/login" ring-req (login-handler                 ring-req))
+;  (route/resources "/") ; Static files, notably public/main.js (our cljs target)
+;  (route/not-found "<h1>Page not found</h1>"))
 
 (def handler
   (routes
