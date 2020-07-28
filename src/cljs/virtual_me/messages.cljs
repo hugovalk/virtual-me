@@ -23,6 +23,7 @@
 
 (defonce messages (r/atom []))
 (defonce current-message (r/atom ""))
+(def author "Hugo")
 
 (defn update-current-message [new]
   (reset! current-message new))
@@ -30,7 +31,7 @@
 (defn to-message [text]
   {:virtual-me.bot.specs/message-id (random-uuid)
    :virtual-me.bot.specs/session-id (random-uuid)
-   :virtual-me.bot.specs/author "Hugo"
+   :virtual-me.bot.specs/author author
    :virtual-me.bot.specs/content text})
 
 (defn append-to-conversation [message]
@@ -51,7 +52,12 @@
 (defn show-messages []
   [:div.messages-list
    (for [message @messages]
-     [:div {:key (str (:virtual-me.bot.specs/message-id message))} (:virtual-me.bot.specs/content message)])])
+     [:div.message
+      (let [div-class (if
+                        (= (:virtual-me.bot.specs/author message) author)
+                        :div.myself
+                        :div)]
+        [div-class {:key (str (:virtual-me.bot.specs/message-id message))} (:virtual-me.bot.specs/content message)])])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")
