@@ -35,7 +35,9 @@
                  [cljs-http "0.1.46"]
                  [cheshire "5.10.0"]
                  [garden "1.3.10"]
-                 [figwheel "0.5.20"]]
+                 [figwheel "0.5.20"]
+                 [clojureql "1.0.5"]
+                 [org.xerial/sqlite-jdbc "3.28.0"]]
   :main virtual-me.httpkit
   :source-paths ["src/clj", "src/scripts", "src/garden"]
   :test-paths ["test/clj"]

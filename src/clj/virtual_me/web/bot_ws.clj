@@ -16,10 +16,9 @@
   (def ring-ajax-get-or-ws-handshake ajax-get-or-ws-handshake-fn)
   (def ch-chsk                       ch-recv) ; ChannelSocket's receive channel
   (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
-  (def connected-uids                connected-uids) ; Watchable, read-only atom
-  )
+  (def connected-uids                connected-uids)) ; Watchable, read-only atom
 
-(def bot (bot/->EchoChatBot (ms/init-inmemory-chat-message-store)))
+(def bot (bot/->IntentsChatBot (ms/init-inmemory-chat-message-store)))
 
 (defmulti -event-msg-handler
           "Multimethod to handle Sente `event-msg`s"
