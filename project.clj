@@ -35,7 +35,7 @@
                  [cljs-http "0.1.46"]
                  [cheshire "5.10.0"]
                  [garden "1.3.10"]
-                 [figwheel "0.5.20"]
+;                 [figwheel "0.5.20"]
                  [clojureql "1.0.5"]
                  [org.xerial/sqlite-jdbc "3.34.0"]]
   :main virtual-me.httpkit
@@ -66,13 +66,15 @@
                              [lein-garden "0.3.0"]
                              [lein-figwheel "0.5.20"]
                              [lein-ring "0.12.5"]
+                             [cider/cider-nrepl "0.25.5"]
                              [lein-ancient "0.6.15"]]
                    :dependencies [[midje "1.9.9"]
                                   [ring/ring-mock "0.4.0"]
                                   [javax.servlet/servlet-api "2.5"]
                                   [org.clojure/test.check "1.1.0"]
-                                  [cider/cider-nrepl "0.25.5"]
-                                  [figwheel-sidecar "0.5.20"]]}}
+;                                  [figwheel-sidecar "0.5.20"]
+                                  [com.bhauman/rebel-readline-cljs "0.1.4"]
+                                  [com.bhauman/figwheel-main "0.2.12"]]}}
   :aliases {"test" ^:pass-through-help ["midje"]
             "download-nlp-models" ["with-profile" "download-nlp-models" "run"]
             "train-w2v-models" ["with-profile" "train-w2v-models" "run"]}
