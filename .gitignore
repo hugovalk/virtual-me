@@ -18,3 +18,4 @@ pom.xml.asc
 test-app
 /logs
 .rebel_readline_history
+.cpcache/
