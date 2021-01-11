@@ -37,6 +37,8 @@
  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
  :aliases {:clj-paths ["src/clj" "src/scripts" "src/garden"]
            :resource-paths ["models/en" "models/nl" "resources"]
+           :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
+                      :main-opts ["-m" "antq.core"]}
            :fig {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
                               com.bhauman/figwheel-main {:mvn/version "0.2.3"}}
                  :main-opts ["-m" "figwheel.main"]}
