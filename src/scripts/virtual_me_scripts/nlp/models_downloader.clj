@@ -23,7 +23,8 @@
 
 (defn fetch-model! [folder name]
   (let [data (download-model! name)]
-    (save-model! folder name data)))
+    (if data
+      (save-model! folder name data))))
 
 (defn models-en []
   (str @models-path "/en"))

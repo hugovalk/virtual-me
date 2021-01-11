@@ -37,6 +37,8 @@
  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
  :aliases {:clj-paths ["src/clj" "src/scripts" "src/garden"]
            :resource-paths ["models/en" "models/nl" "resources"]
+           :download-nlp-models {:main-opts ["-m" "virtual-me-scripts.nlp.models-downloader"]}
+           :train-w2v-models {:main-opts ["-m" "virtual-me-scripts.nlp.w2v-trainer"]}
            :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
                       :main-opts ["-m" "antq.core"]}
            :fig {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
