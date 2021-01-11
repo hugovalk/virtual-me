@@ -13,6 +13,7 @@
         org.deeplearning4j/deeplearning4j-nlp {:mvn/version "1.0.0-beta3"}
         org.nd4j/nd4j-native-platform {:mvn/version "1.0.0-beta3"}
         org.clojure/tools.logging {:mvn/version "1.1.0"}
+        org.slf4j/slf4j-api {:mvn/version "1.7.25"}
         ch.qos.logback/logback-classic {:mvn/version "1.2.3"}
         compojure/compojure {:mvn/version "1.6.2"}
         org.flatland/ordered {:mvn/version "1.5.9"}
@@ -33,6 +34,7 @@
         clojureql/clojureql {:mvn/version "1.0.5"}
         org.xerial/sqlite-jdbc {:mvn/version "3.34.0"}}
  :paths [:clj-paths :resource-paths]
+ :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
  :aliases {:clj-paths ["src/clj" "src/scripts" "src/garden"]
            :resource-paths ["models/en" "models/nl" "resources"]
            :fig {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
@@ -40,7 +42,7 @@
                  :main-opts ["-m" "figwheel.main"]}
            :test {:extra-paths ["test/clj"]
                   :extra-deps {midje/midje {:mvn/version "1.9.9"}
-                               midje-runner {:git/url "git@github.com:miorimmax/midje-runner"
+                               midje-runner/midje-runner {:git/url "git@github.com:miorimmax/midje-runner"
                                             :sha "ee9c2813e150ae6b3ea41b446b09ba40fc89bdc1"}
                                ring/ring-mock {:mvn/version "0.4.0"}
                                javax.servlet/servlet-api {:mvn/version "2.5"}
