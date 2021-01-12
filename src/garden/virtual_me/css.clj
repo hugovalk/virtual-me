@@ -10,7 +10,9 @@
 (def dark-gray (color/rgb [40 40 40]))
 (def white (color/rgb [255 255 255]))
 
-(defstyles screen
+(defstyles
+  ^{:garden {:output-to "resources/public/css/screen.css"}}
+  screen
   [:*
    {:margin 0
     :padding 0}]
