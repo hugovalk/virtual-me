@@ -7,12 +7,28 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
             [virtual-me.web.views :refer :all]))
 
-(defroutes main-routes
-  (GET "/" [] (index-page))
-  (route/resources "/")
+(defroutes dev-index-routes
+  (GET "/" [] (index-page true)))
+
+(defroutes index-routes
+  (GET "/" [] (index-page false)))
+
+(defroutes sente-routes
   (GET "/chsk" req (bot-ws/ring-ajax-get-or-ws-handshake req))
-  (POST "/chsk" req (bot-ws/ring-ajax-post req))
+  (POST "/chsk" req (bot-ws/ring-ajax-post req)))
+
+(defroutes main-routes
+  (route/resources "/")
+  sente-routes
+  dev-index-routes
   (route/not-found "Page not found"))
+
+(defroutes dev-main-routes
+  (route/resources "/")
+  sente-routes
+  dev-index-routes
+  (route/not-found "Page not found"))
+
 
 (defapi api-routes
   (swagger-routes {:ui   "/api-docs"
@@ -32,16 +48,13 @@
     (context "/bot" []
       (GET "/name" []
         (ok {:name bot/bot-name})))))
-;
-;(defroutes ring-routes
-;  (GET  "/"      ring-req (landing-pg-handler            ring-req))
-;  (GET  "/chsk"  ring-req (ring-ajax-get-or-ws-handshake ring-req))
-;  (POST "/chsk"  ring-req (ring-ajax-post                ring-req))
-;  (POST "/login" ring-req (login-handler                 ring-req))
-;  (route/resources "/") ; Static files, notably public/main.js (our cljs target)
-;  (route/not-found "<h1>Page not found</h1>"))
 
 (def handler
   (routes
-    (wrap-defaults api-routes api-defaults)
-    (wrap-defaults main-routes site-defaults)))
+   (wrap-defaults api-routes api-defaults)
+   (wrap-defaults main-routes site-defaults)))
+
+(def dev-handler
+    (routes
+     (wrap-defaults api-routes api-defaults)
+     (wrap-defaults dev-main-routes site-defaults)))

@@ -1,8 +1,9 @@
-(ns virtual-me.dev
+(ns ^:figwheel-hooks virtual-me.dev
   (:require [virtual-me.js]
-            [reagent.core :as r]))
+            [reagent.dom :as d]))
 
 (enable-console-print!)
 
 (defn fig-reload []
-  (r/force-update-all))
+  (println "test2")
+  (d/force-update-all))

@@ -2,7 +2,7 @@
   (:use [hiccup core page])
   (:require [ring.middleware.anti-forgery :as anti-forgery]))
 
-(defn index-page []
+(defn index-page [is-dev?]
   (html5
     [:head
      [:title "My Virtual Assistant"]
@@ -15,5 +15,7 @@
      [:header
       [:h1 "My Virtual Assistant"]]
      [:div#app]
-     [:script {:src "/js/main.js"}]
+     (if is-dev?
+       [:script {:src "/cljs-out/dev-main.js"}]
+       [:script {:src "/cljs-out/main.js"}])
      [:script "virtual_me.js.run();"]]))

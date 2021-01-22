@@ -1,0 +1,3 @@
+{:watch-dirs ["src/cljs" "src/cljs-dev"]
+ :css-dirs ["target/public/css"]
+ :open-url "http://localhost:8080"}
