@@ -39,9 +39,11 @@
            :cljs-paths ["src/cljs" "src/cljs-dev"]
            :resource-paths ["models/en" "models/nl" "resources" "target"]
            :garden-compile {:main-opts ["-m" "garden-watcher.main" "virtual-me.css"]
-                          :extra-deps {lambdaisland/garden-watcher {:mvn/version "1.0.27"}}}
-           :download-nlp-models {:main-opts ["-m" "virtual-me-scripts.nlp.models-downloader"]}
-           :train-w2v-models {:main-opts ["-m" "virtual-me-scripts.nlp.w2v-trainer"]}
+                          :extra-deps {lambdaisland/garden-watcher {:mvn/version "1.0.36"}}}
+           :download-nlp-models {:main-opts ["-m" "virtual-me-scripts.nlp.models-downloader"]
+                                 :extra-paths ["src/scripts"]}
+           :train-w2v-models {:main-opts ["-m" "virtual-me-scripts.nlp.w2v-trainer"]
+                              :extra-paths ["src/scripts"]}
            :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
                       :main-opts ["-m" "antq.core"]}
            :fig {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
