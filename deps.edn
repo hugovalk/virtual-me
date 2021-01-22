@@ -33,10 +33,11 @@
 ;                 {figwheel {:mvn/version "0.5.20"}}
         clojureql/clojureql {:mvn/version "1.0.5"}
         org.xerial/sqlite-jdbc {:mvn/version "3.34.0"}}
- :paths [:clj-paths :resource-paths]
+ :paths [:clj-paths :cljs-paths :resource-paths]
  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
- :aliases {:clj-paths ["src/clj" "src/scripts" "src/garden"]
-           :resource-paths ["models/en" "models/nl" "resources"]
+ :aliases {:clj-paths ["src/clj" "src/garden"]
+           :cljs-paths ["src/cljs" "src/cljs-dev"]
+           :resource-paths ["models/en" "models/nl" "resources" "target"]
            :garden-compile {:main-opts ["-m" "garden-watcher.main" "virtual-me.css"]
                           :extra-deps {lambdaisland/garden-watcher {:mvn/version "1.0.27"}}}
            :download-nlp-models {:main-opts ["-m" "virtual-me-scripts.nlp.models-downloader"]}
