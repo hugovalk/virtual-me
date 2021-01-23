@@ -10,10 +10,10 @@
   ([is-dev?]
    (wrap-with-logger
     (if is-dev?
-      (reload/wrap-reload dev-handler)
+      (reload/wrap-reload dev-handler {:dirs ["src/clj"]})
       handler))))
 
-(def app-figwheel
+(defn app-figwheel []
   (let [r (start-router!)]
     (app true)))
 

@@ -49,7 +49,8 @@
            :run {:main-opts ["-m" "virtual-me.httpkit"]}
            :fig {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
                               com.bhauman/figwheel-main {:mvn/version "0.2.12"}}
-                 :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]}
+                 :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
+                 :extra-paths ["src/scripts"]}
            :test {:extra-paths ["test/clj"]
                   :extra-deps {midje/midje {:mvn/version "1.9.9"}
                                midje-runner/midje-runner {:git/url "git@github.com:miorimmax/midje-runner"

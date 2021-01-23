@@ -15,7 +15,7 @@
                  (<! (http/get "/api/bot/name"))]
              (reset! bot-name name)))
        :display-name "greeting"
-       :reagent-render (fn [] [:h2 "you are talking with4: " @bot-name])})))
+       :reagent-render (fn [] [:h2 "you are talking with: " @bot-name])})))
 
 (defn chat-window []
   [:div.chat-window
