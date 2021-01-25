@@ -26,11 +26,13 @@
   [:header
    {:background-color dark-gray
     :color white
-    :padding [(em 1)]}]
+    :height "10vh"}]
 
   [:div#app
    {:max-width (em 40)
     :margin "0 auto"
+    :height "90vh"
+    :overflow-y "auto"
     :padding "5px"}]
 
   [:div.message-input
@@ -48,11 +50,15 @@
      :width "100%"}
     [:div
      {:float :left
-      :width "40%"
+      :min-width "40%"
+      :max-width "70%"
       :padding (em 0.5)
       :border-radius (em 0.5)
       :background-color light-blue}]
     [:div.myself
      {:float :right
       :color white
-      :background-color dark-blue}]]])
+      :background-color dark-blue}]]]
+  [:div.message-bottom
+   {:display :inline-block
+    :height (px 1)}])

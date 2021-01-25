@@ -19,7 +19,7 @@
   (def chsk       chsk)
   (def ch-chsk    ch-recv) ; ChannelSocket's receive channel
   (def chsk-send! send-fn) ; ChannelSocket's send API fn
-  (def chsk-state state))   ; Watchable, read-only atom
+  (def chsk-state state))  ; Watchable, read-only atom
 
 (defonce messages (r/atom []))
 (defonce current-message (r/atom ""))
@@ -37,6 +37,11 @@
 (defn append-to-conversation [message]
   (reset! messages (conj @messages message)))
 
+(defn scroll-down []
+  (let [els (.getElementsByClassName js/document "message-input")
+             el (first els)]
+     (.scrollIntoView el {:block "end"})))
+
 (defn push-message [text]
   (let [message (to-message text)]
     (println message)
@@ -45,7 +50,8 @@
       8000
       (fn [reply]
         (if (sente/cb-success? reply)
-          (append-to-conversation reply)
+          (do (append-to-conversation reply)
+              (scroll-down))
           (println "Booh!"))))
     (append-to-conversation message)))
 
