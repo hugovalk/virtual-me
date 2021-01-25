@@ -25,9 +25,6 @@
 (defonce current-message (r/atom ""))
 (def author "Hugo")
 
-(defn update-current-message [new]
-  (reset! current-message new))
-
 (defn to-message [text]
   {:virtual-me.bot.specs/message-id (random-uuid)
    :virtual-me.bot.specs/session-id (random-uuid)
@@ -76,5 +73,5 @@
   [:div.message-input
    [:textarea {:type "text" :rows 3
                :value @current-message
-               :on-change #(update-current-message (-> % .-target .-value))
+               :on-change #(reset! current-message (-> % .-target .-value))
                :on-key-press #(push-current-message-on-key-press %)}]])
