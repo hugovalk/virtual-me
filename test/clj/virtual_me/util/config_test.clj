@@ -4,6 +4,5 @@
 
 (facts "Configuration loader tests"
        (fact "Properties are loaded from disk"
-             (load-config-from-disk)
              (config-get :test-prop :deeper-prop) => "deeper-value"))
 

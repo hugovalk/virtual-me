@@ -37,38 +37,46 @@
         com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
         com.bhauman/figwheel-main {:mvn/version "0.2.12"}}
  :paths [:clj-paths :cljs-paths :resource-paths]
- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
+ :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
+            "-Dconf=./config.edn"]
  :aliases {:clj-paths ["src/clj" "src/garden"]
            :cljs-paths ["src/cljs" "src/cljs-dev"]
            :resource-paths ["models/en" "models/nl" "resources" "target"]
+
            :garden-compile {:main-opts ["-m" "garden-watcher.main" "virtual-me.css"]
                           :extra-deps {lambdaisland/garden-watcher {:mvn/version "1.0.36"}}}
+
            :download-nlp-models {:main-opts ["-m" "virtual-me-scripts.nlp.models-downloader"]
                                  :extra-paths ["src/scripts"]}
+
            :train-w2v-models {:main-opts ["-m" "virtual-me-scripts.nlp.w2v-trainer"]
                               :extra-paths ["src/scripts"]}
+
            :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}}
                       :main-opts ["-m" "antq.core"]}
+
            :run {:main-opts ["-m" "virtual-me.httpkit"]}
+
            :fig {:extra-deps {}
                  :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
                  :extra-paths ["src/scripts"]}
+
            :autotest {:main-opts ["-m" "virtual-me-scripts.autotest"]
-                      :jvm-opts ["-Dconf=./config.edn"]
                       :extra-paths ["test/clj" "src/scripts"]
                       :extra-deps {midje/midje {:mvn/version "1.9.9"}
-                                   ring/ring-mock {:mvn/version "0.4.0"}}}
-           :test {:extra-paths ["test/clj"]
+                                   ring/ring-mock {:mvn/version "0.4.0"}}
+                      :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
+
+           :test {:main-opts ["-m" "virtual-me-scripts.test"]
+                  :extra-paths ["test/clj" "src/scripts"]
                   :extra-deps {midje/midje {:mvn/version "1.9.9"}
-                               midje-runner/midje-runner {:git/url "git@github.com:miorimmax/midje-runner"
-                                            :sha "ee9c2813e150ae6b3ea41b446b09ba40fc89bdc1"}
-                               ring/ring-mock {:mvn/version "0.4.0"}
-                               org.clojure/test.check {:mvn/version "1.1.0"}}
-                  :main-opts ["-m" "midje-runner.runner"]}
-           :repl-server
-            {:exec-fn clojure.core.server/start-server
-             :exec-args {:name "repl-server"
+                               ring/ring-mock {:mvn/version "0.4.0"}}
+                  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
+            "-Dconf=./config.edn"]
+}
+
+           :repl-server {:exec-fn clojure.core.server/start-server
+                         :exec-args {:name "repl-server"
                          :port 5555
                          :accept clojure.core.server/repl
-                         :server-daemon false}}}
-}
+                         :server-daemon false}}}}
