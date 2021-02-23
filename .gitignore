@@ -19,3 +19,4 @@ test-app
 /logs
 .rebel_readline_history
 .cpcache/
+config.edn
