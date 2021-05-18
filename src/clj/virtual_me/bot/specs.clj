@@ -11,3 +11,9 @@
                                      ::author
                                      ::content]))
 
+(spec/def ::tag string?)
+(spec/def ::pattern (spec/* string?))
+(spec/def ::responses (spec/* string?))
+(spec/def ::intent (spec/keys :req [::tag
+                                    ::pattern
+                                    ::responses]))

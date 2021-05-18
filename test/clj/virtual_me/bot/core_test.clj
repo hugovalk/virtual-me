@@ -28,8 +28,9 @@
                => (throws IllegalArgumentException))))
 
 (let [session (UUID/randomUUID)
-      bot (b/->IntentsChatBot (ms/init-inmemory-chat-message-store))]
-  (facts "Intents bot facts"
+      bot (b/->IntentsChatBot (ms/init-inmemory-chat-message-store)
+                              intents/intents)]
+  (facts "Intents bot with default intents only facts"
          (fact "Bot has a default 'do not understand' message"
                (b/receive bot session [(ms session "qqqqq")])
                (let [response (b/respond bot session)]
@@ -37,5 +38,5 @@
          (fact "Bot responds correctly to a greeting"
                (b/receive bot session [(ms session "Hello")])
                (let [response (::bspec/content (b/respond bot session))
-                     possible-responses (::intents/responses (:greeting intents/intents))]
+                     possible-responses (::bspec/responses (:greeting intents/intents))]
                  (some #(= % response) possible-responses) => true))))

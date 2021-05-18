@@ -35,22 +35,21 @@
   (receive [_ session messages]
     (ms/save session-store messages)))
 
-(defn match-intent [last-message]
-  (let [all-intents intents/intents
-        match (some #(when ((fn [i]
-                              (let [patterns (::intents/pattern i)]
+(defn match-intent [last-message all-intents]
+  (let [match (some #(when ((fn [i]
+                              (let [patterns (::bspec/pattern i)]
                                 (some
                                   (fn [x] (= x (s/lower-case (::bspec/content last-message))))
                                   patterns)))
                             %) %) (vals all-intents))]
     (println match)
-    (rand-nth (::intents/responses match))))
+    (rand-nth (::bspec/responses match))))
 
-(defrecord IntentsChatBot [session-store]
+(defrecord IntentsChatBot [session-store all-intents]
   ChatBot
   (respond [_ session]
     (let [last-message (last (ms/query-by-session-id session-store session))
-          answer-content (match-intent last-message)
+          answer-content (match-intent last-message all-intents)
           answer (if answer-content
                    (create-message session answer-content)
                    (default session))]

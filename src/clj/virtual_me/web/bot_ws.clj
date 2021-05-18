@@ -2,6 +2,7 @@
   (:require [taoensso.sente :as sente]
             [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.core :as bot]
+            [virtual-me.bot.intents :as bintents]
             [virtual-me.bot.messages :as ms]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
             [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]])
@@ -18,7 +19,8 @@
   (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
   (def connected-uids                connected-uids)) ; Watchable, read-only atom
 
-(def bot (bot/->IntentsChatBot (ms/init-inmemory-chat-message-store)))
+(def bot (bot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
+                               bintents/intents))
 
 (defmulti -event-msg-handler
           "Multimethod to handle Sente `event-msg`s"
