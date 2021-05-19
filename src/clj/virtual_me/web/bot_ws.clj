@@ -4,6 +4,7 @@
             [virtual-me.bot.core :as bot]
             [virtual-me.bot.intents :as bintents]
             [virtual-me.bot.messages :as ms]
+            [virtual-weather-reporter.intents :as weather-intents]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
             [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]])
   (:import (java.util UUID)))
@@ -20,7 +21,10 @@
   (def connected-uids                connected-uids)) ; Watchable, read-only atom
 
 (def bot (bot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
-                               bintents/intents))
+                               (merge
+                                bintents/intents
+                                weather-intents/intents
+                                )))
 
 (defmulti -event-msg-handler
           "Multimethod to handle Sente `event-msg`s"
