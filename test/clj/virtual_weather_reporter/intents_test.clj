@@ -3,23 +3,13 @@
   (:require [virtual-weather-reporter.intents :as wi]
             [virtual-me.bot.core :as b]
             [virtual-me.bot.specs :as bspec]
-            [virtual-me.bot.messages :as bmes])
-  (:import (java.util UUID)
-           (java.time Instant)))
+            [virtual-me.bot.messages :as bmes]
+            [virtual-me.bot.test-util :as butil]))
 
-(defn ms [session text]
-  {::bspec/author    "test"
-   ::bspec/content   text
-   ::bspec/session-id session
-   ::bspec/message-id (UUID/randomUUID)
-   ::bspec/timestamp  (Instant/now)})
-
-(let [session (UUID/randomUUID)
-      bot (b/->IntentsChatBot (bmes/init-inmemory-chat-message-store)
-                              wi/intents)]
+(let [session (butil/new-session)
+      bot (butil/new-intents-bot wi/intents)]
   (facts "Intents bot with weather intents facts"
-         (fact "Bot answers the temperature"
-               (b/receive bot session [(ms session "What is the temperature?")])
-               (let [response (::bspec/content (b/respond bot session))
-                     possible-responses (::bspec/responses (:temperature wi/intents))]
-                 (some #(= % response) possible-responses) => true))))
+         (let [intent (:temperature wi/intents)]
+           (butil/test-prompt-for-intent bot session "What is the temperature?" intent)
+           (butil/test-prompt-for-intent bot session "How warm is it?" intent)
+           (butil/test-prompt-for-intent bot session "How cold is it?" intent))))

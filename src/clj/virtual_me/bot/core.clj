@@ -42,7 +42,6 @@
                                   (fn [x] (= x (s/lower-case (::bspec/content last-message))))
                                   patterns)))
                             %) %) (vals all-intents))]
-    (println match)
     (rand-nth (::bspec/responses match))))
 
 (defrecord IntentsChatBot [session-store all-intents]
