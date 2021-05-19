@@ -61,6 +61,10 @@
                  :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
                  :extra-paths ["src/scripts"]}
 
+           :dev-classpath {:extra-paths ["test/clj" "src/scripts"]
+                           :extra-deps {midje/midje {:mvn/version "1.9.9"}
+                                    ring/ring-mock {:mvn/version "0.4.0"}}}
+           
            :autotest {:main-opts ["-m" "virtual-me-scripts.autotest"]
                       :extra-paths ["test/clj" "src/scripts"]
                       :extra-deps {midje/midje {:mvn/version "1.9.9"}
@@ -72,8 +76,7 @@
                   :extra-deps {midje/midje {:mvn/version "1.9.9"}
                                ring/ring-mock {:mvn/version "0.4.0"}}
                   :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
-            "-Dconf=./config.edn"]
-}
+            "-Dconf=./config.edn"]}
 
            :repl-server {:exec-fn clojure.core.server/start-server
                          :exec-args {:name "repl-server"
