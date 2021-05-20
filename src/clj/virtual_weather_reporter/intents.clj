@@ -4,5 +4,6 @@
 
 (def intents
   {:temperature {::bspec/tag "temperature"
+                 ::bspec/intent-type ::bspec/text-intent
                  ::bspec/pattern ["what is the temperature?" "what's the temperature?" "how warm is it?" "how cold is it?"]
                  ::bspec/responses ["I don't know the temperature"]}})

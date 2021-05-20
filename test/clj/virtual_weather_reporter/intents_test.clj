@@ -9,6 +9,7 @@
 (let [session (butil/new-session)
       bot (butil/new-intents-bot wi/intents)]
   (facts "Intents bot with weather intents facts"
+         (butil/validate-intents wi/intents "weather intents")
          (let [intent (:temperature wi/intents)]
            (butil/test-prompt-for-intent bot session "What is the temperature?" intent)
            (butil/test-prompt-for-intent bot session "How warm is it?" intent)

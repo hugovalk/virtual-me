@@ -3,7 +3,8 @@
   (:require [virtual-me.bot.core :as b]
             [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.intents :as bi]
-            [virtual-me.bot.messages :as bmes])
+            [virtual-me.bot.messages :as bmes]
+            [clojure.spec.alpha :as spec])
   (:import (java.util UUID)
            (java.time Instant)))
 
@@ -26,6 +27,12 @@
 (defn validate-response [response intent]
   (let [possible-responses (::bspec/responses intent)]
     (some #(= % response) possible-responses) => true))
+
+(defmacro validate-intents [intents intents-name]
+  (let [m-v (gensym 'v)]
+    `(fact ~(str "All " intents-name " intents are valid.")
+           (doseq [~m-v (vals ~intents)]
+             (spec/conform ::bspec/intent ~m-v) => ~m-v))))
 
 (defmacro test-prompt-for-intent [bot session prompt intent]
   (let [m-response (gensym 'response)

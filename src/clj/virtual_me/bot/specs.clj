@@ -3,7 +3,7 @@
 
 (spec/def ::session-id uuid?)
 (spec/def ::message-id uuid?)
-(spec/def ::timestamp inst?)
+(spec/def ::intentimestamp inst?)
 (spec/def ::author string?)
 (spec/def ::content string?)
 (spec/def ::message (spec/keys :req [::message-id
@@ -12,8 +12,10 @@
                                      ::content]))
 
 (spec/def ::tag string?)
+(spec/def ::intent-type #{::text-intent ::function-intent})
 (spec/def ::pattern (spec/* string?))
 (spec/def ::responses (spec/* string?))
 (spec/def ::intent (spec/keys :req [::tag
+                                    ::intent-type
                                     ::pattern
                                     ::responses]))

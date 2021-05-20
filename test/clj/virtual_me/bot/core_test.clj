@@ -3,7 +3,8 @@
   (:require [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.core :as b]
             [virtual-me.bot.intents :as intents]
-            [virtual-me.bot.test-util :as butil]))
+            [virtual-me.bot.test-util :as butil]
+            [clojure.spec.alpha :as spec]))
 
 (let [session (butil/new-session)
       bot (butil/new-echo-bot)]
@@ -22,6 +23,7 @@
 (let [session (butil/new-session)
       bot (butil/new-intents-bot intents/intents)]
   (facts "Intents bot with default intents only facts"
+         (butil/validate-intents intents/intents "default intents")
          (fact "Bot has a default 'do not understand' message"
                (b/receive bot session [(butil/create-message session "qqqqq")])
                (let [response (b/respond bot session)]
