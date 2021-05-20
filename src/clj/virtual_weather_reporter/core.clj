@@ -6,15 +6,23 @@
 
 (def base-url "http://api.openweathermap.org/data/2.5/weather?q=gouda&appid=")
 
+(defn kelvin-to-celsius [kelvin]
+  (if kelvin
+    (- kelvin 273.15)
+    nil))
+
 (defn fetch-from-openweathermap []
   (let [api-key (config-get :api-keys :open-weather-api-key)]
     (http/get (str base-url api-key) {:as :json})))
 
 (defn to-weather [input]
-  (let [{:keys [temp temp_min temp_max]} (:main input)]
-    {::ws/temperature temp
-     ::ws/today {::ws/min temp_min
-                 ::ws/max temp_max}}))
+  (let [{:keys [temp temp_min temp_max]} (:main input)
+        ctemp (kelvin-to-celsius temp)
+        ctemp_min (kelvin-to-celsius temp_min)
+        ctemp_max (kelvin-to-celsius temp_max)]
+    {::ws/temperature ctemp
+     ::ws/today {::ws/min ctemp_min
+                 ::ws/max ctemp_max}}))
 
 (defn test-response! [weather]
   (if (= (spec/valid? ::ws/weather weather) true)

@@ -28,7 +28,7 @@
 (facts "Weather reporter tests"
        (fact "Valid openweathermap response can be parsed to valid weather specs"
              (let [result (to-weather response)]
-               (::ws/max (::ws/today result)) => 282.15
+               (::ws/max (::ws/today result)) => 9.0
                (spec/valid? ::ws/weather result) => true))
        (fact "Empty openweathermap response map does not result in error"
              (let [result (to-weather {})]
