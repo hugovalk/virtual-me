@@ -35,14 +35,17 @@
   (receive [_ session messages]
     (ms/save session-store messages)))
 
+(defn- prompt-matches-intent? [prompt intent]
+  (let [patterns (::bspec/pattern intent)]
+    (some #(= % (s/lower-case prompt)) patterns)))
+
+(defn- find-matching-intent [prompt intents]
+  (some #(when (prompt-matches-intent? prompt %) %) (vals intents)))
+
 (defn match-intent [last-message all-intents]
-  (let [match (some #(when ((fn [i]
-                              (let [patterns (::bspec/pattern i)]
-                                (some
-                                  (fn [x] (= x (s/lower-case (::bspec/content last-message))))
-                                  patterns)))
-                            %) %) (vals all-intents))]
-    (rand-nth (::bspec/responses match))))
+  (let [prompt (::bspec/content last-message)
+        matching-intent  (find-matching-intent prompt all-intents)]
+    (rand-nth (::bspec/responses matching-intent))))
 
 (defrecord IntentsChatBot [session-store all-intents]
   ChatBot
