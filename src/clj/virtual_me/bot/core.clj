@@ -23,13 +23,13 @@
   (respond [_ session])
   (receive [_ session messages]))
 
-(defn default [session-id]
+(defn default-response [session-id]
   (create-message session-id "I don't understand."))
 
 (defrecord EchoChatBot [session-store]
   ChatBot
   (respond [_ session]
-    (let [answer (reduce echo-response (default session) (ms/query-by-session-id session-store session))]
+    (let [answer (reduce echo-response (default-response session) (ms/query-by-session-id session-store session))]
       (ms/save session-store [answer])
       answer))
   (receive [_ session messages]
@@ -51,7 +51,7 @@
           answer-content (match-intent last-message all-intents)
           answer (if answer-content
                    (create-message session answer-content)
-                   (default session))]
+                   (default-response session))]
       (ms/save session-store [answer])
       answer))
   (receive [_ session messages]
