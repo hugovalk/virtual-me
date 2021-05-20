@@ -43,4 +43,10 @@
                  ~m-possible-responses (::bspec/responses ~intent)]
              (some #(= % ~m-response) ~m-possible-responses) => true))))
 
+(defmacro test-prompt-for-function [bot session prompt answer-regex]
+  (let [m-response (gensym 'response)]
+    `(fact (str ~(str "Bot answers correctly from function for prompt: " prompt " with: " answer-regex))
+           (b/receive ~bot ~session [(butil/create-message ~session ~prompt)])
+           (let [~m-response (::bspec/content (b/respond ~bot ~session))]
+             ~m-response => #"The temperature is .*"))))
 

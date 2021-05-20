@@ -10,7 +10,6 @@
       bot (butil/new-intents-bot wi/intents)]
   (facts "Intents bot with weather intents facts"
          (butil/validate-intents wi/intents "weather intents")
-         (let [intent (:temperature wi/intents)]
-           (butil/test-prompt-for-intent bot session "What is the temperature?" intent)
-           (butil/test-prompt-for-intent bot session "How warm is it?" intent)
-           (butil/test-prompt-for-intent bot session "How cold is it?" intent))))
+         (butil/test-prompt-for-function bot session "What is the temperature?" #"The temperature is .*")
+         (butil/test-prompt-for-function bot session "How warm is it?" #"The temperature is .*")
+         (butil/test-prompt-for-function bot session "How cold is it?" #"The temperature is .*")))
