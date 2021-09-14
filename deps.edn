@@ -59,9 +59,12 @@
 
            :run {:main-opts ["-m" "virtual-me.httpkit"]}
 
-           :fig {:extra-deps {}
+           :fig {:extra-paths ["src/scripts"]
+                 :extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}
+                              cider/cider-nrepl {:mvn/version "0.26.0"}
+                              cider/piggieback {:mvn/version "0.5.2"}}
                  :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
-                 :extra-paths ["src/scripts"]}
+                 :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
 
            :dev-classpath {:extra-paths ["test/clj" "src/scripts"]
                            :extra-deps {midje/midje {:mvn/version "1.10.4"}
