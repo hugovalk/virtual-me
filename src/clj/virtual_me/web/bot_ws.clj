@@ -6,7 +6,8 @@
             [virtual-me.bot.messages :as ms]
             [virtual-weather-reporter.intents :as weather-intents]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
-            [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]])
+            [clojure.core.async :as async :refer [<! <!! >! >!! put! chan go go-loop]]
+            [clojure.tools.logging :refer [info debug]])
   (:import (java.util UUID)))
 
 (let [{:keys [ch-recv send-fn connected-uids
@@ -41,7 +42,7 @@
   [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
   (let [session (:session ring-req)
         uid (:uid session)]
-    (println "Unhandled event: %s" event)
+    (debug "Unhandled event: %s" event)
     (when ?reply-fn
       (?reply-fn {:umatched-event-as-echoed-from-server event}))))
 
@@ -49,7 +50,7 @@
 (defmethod -event-msg-handler ::bspec/message
   [{:as ev-msg :keys [event ?reply-fn]}]
   (let [[id message] event]
-    (println (str "Calculating response for" event))
+    (debug (str "Calculating response for" event))
     (let [message-session (assoc message ::bspec/session-id session)]
       (bot/receive bot session [message-session])
       (?reply-fn (bot/respond bot session)))))

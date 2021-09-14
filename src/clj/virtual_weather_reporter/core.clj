@@ -2,7 +2,8 @@
   (:require [virtual-me.util.config :refer [config-get]]
             [clj-http.client :as http]
             [virtual-weather-reporter.specs :as ws]
-            [clojure.spec.alpha :as spec]))
+            [clojure.spec.alpha :as spec]
+            [clojure.tools.logging :refer [debug info]]))
 
 (def base-url "http://api.openweathermap.org/data/2.5/weather?q=gouda&appid=")
 
@@ -13,6 +14,7 @@
 
 (defn fetch-from-openweathermap []
   (let [api-key (config-get :api-keys :open-weather-api-key)]
+    (info "Getting temperature response from Openweathermap.")
     (http/get (str base-url api-key) {:as :json})))
 
 (defn to-weather [input]

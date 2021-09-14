@@ -3,7 +3,8 @@
             [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.messages :as ms]
             [virtual-me.bot.intents :as intents]
-            [clojure.string :as s])
+            [clojure.string :as s]
+            [clojure.tools.logging :refer [info]])
   (:import (java.util UUID)))
 
 (def bot-name "Botty")
@@ -29,6 +30,7 @@
 (defrecord EchoChatBot [session-store]
   ChatBot
   (respond [_ session]
+    (info "EchoChatBot responding on a running session.")
     (let [answer (reduce echo-response (default-response session) (ms/query-by-session-id session-store session))]
       (ms/save session-store [answer])
       answer))
@@ -57,6 +59,7 @@
 (defrecord IntentsChatBot [session-store all-intents]
   ChatBot
   (respond [_ session]
+    (info "IntentsChatBot responding on session %s." session)
     (let [last-message (last (ms/query-by-session-id session-store session))
           answer-content (match-intent last-message all-intents session)
           answer (create-message session answer-content)]
