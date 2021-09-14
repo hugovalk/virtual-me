@@ -7,7 +7,7 @@
 
 (defn temperature-response []
   (let [weather-info (get-weather-info)]
-    (str "The temperature is " (::wspec/temperature weather-info) ".")))
+    (format "The temperature is %.1f °C." (::wspec/temperature weather-info))))
 
 (spec/fdef temperature-response
   :args (spec/cat)
