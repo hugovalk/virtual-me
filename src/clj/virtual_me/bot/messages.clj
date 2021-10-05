@@ -9,8 +9,8 @@
              messages))
 
 (defprotocol ChatMessageStore
-  (save [message-store messages])
-  (query-by-session-id [message-store session-id]))
+  (save [message-store messages] "Save a collection of messages in the message store.")
+  (query-by-session-id [message-store session-id] "Get all messages exchanged in a certain chat session."))
 
 (defrecord InMemoryChatMessageStore [store]
   ChatMessageStore

@@ -27,7 +27,7 @@
                  ::ws/max ctemp_max}}))
 
 (defn test-response! [weather]
-  (if (= (spec/valid? ::ws/weather weather) true)
+  (if (spec/valid? ::ws/weather weather)
     weather
     (throw (AssertionError. "Weather response is invalid."))))
 

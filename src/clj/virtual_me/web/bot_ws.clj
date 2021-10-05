@@ -2,7 +2,7 @@
   (:require [taoensso.sente :as sente]
             [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.core :as bot]
-            [virtual-me.bot.intents :as bintents]
+            [virtual-me.bot.intents.intents-bot :as ibot]
             [virtual-me.bot.messages :as ms]
             [virtual-weather-reporter.intents :as weather-intents]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
@@ -21,9 +21,9 @@
   (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
   (def connected-uids                connected-uids)) ; Watchable, read-only atom
 
-(def bot (bot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
+(def bot (ibot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
                                (merge
-                                bintents/intents
+                                ibot/default-intents
                                 weather-intents/intents
                                 )))
 

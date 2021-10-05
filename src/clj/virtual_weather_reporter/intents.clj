@@ -1,6 +1,6 @@
 (ns virtual-weather-reporter.intents
   (:use virtual-weather-reporter.core)
-  (:require [virtual-me.bot.specs :as bspec]
+  (:require [virtual-me.bot.intents.specs :as ibspec]
             [virtual-weather-reporter.specs :as wspec]
             [clojure.spec.alpha :as spec]))
 
@@ -15,8 +15,8 @@
 
 
 (def intents
-  {:temperature {::bspec/tag "temperature"
-                 ::bspec/intent-type ::bspec/function-intent
-                 ::bspec/pattern ["what is the temperature?" "what's the temperature?"
+  {:temperature {::ibspec/tag "temperature"
+                 ::ibspec/intent-type ::ibspec/function-intent
+                 ::ibspec/pattern ["what is the temperature?" "what's the temperature?"
                                   "how warm is it?" "how cold is it?"]
-                 ::bspec/function temperature-response}})
+                 ::ibspec/function temperature-response}})
