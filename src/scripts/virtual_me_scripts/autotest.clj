@@ -2,4 +2,4 @@
   (:require [midje.repl :as m]))
 
 (defn -main []
-  (m/autotest :dirs "test/clj" "src/clj"))
+  (m/autotest :filter (complement :integration) :dirs "test/clj" "src/clj"))

@@ -16,7 +16,7 @@
     ::bspec/author     "Hugo"
     ::bspec/content    content}))
 
-(facts "The InMemoryChatMessageStore"
+(fact-group "The InMemoryChatMessageStore"
   (fact "Can save message to the collection with the correct session id"
     (let [store (atom {})
           repo (init-inmemory-chat-message-store store)

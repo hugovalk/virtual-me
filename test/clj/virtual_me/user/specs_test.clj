@@ -5,7 +5,7 @@
             [clojure.spec.alpha :as spec])
   (:import (java.util UUID)))
 
-(facts "User specs guarantee validness of the user object"
+(fact-group "User specs guarantee validness of the user object"
        (fact "A user id is an UUID"
              (spec/valid? ::uspec/user-id (UUID/randomUUID)))
        (fact "A user name is a string"

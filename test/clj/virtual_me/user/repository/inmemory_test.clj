@@ -4,7 +4,7 @@
   (:require [virtual-me.user.core :as user]
             [virtual-me.user.specs :as uspec]))
 
-(facts "The InMemoryUserstore"
+(fact-group "The InMemoryUserstore"
        (fact "Can create and store a new user"
              (let [store (atom {})
                    repo (init-inmemory-user-store store)

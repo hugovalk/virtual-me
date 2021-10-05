@@ -25,7 +25,7 @@
     :humidity 71},
    :visibility 10000})
 
-(facts "Weather reporter tests"
+(fact-group "Weather reporter tests"
        (fact "Valid openweathermap response can be parsed to valid weather specs"
              (let [result (to-weather response)]
                (::ws/max (::ws/today result)) => 9.0
@@ -34,7 +34,7 @@
              (let [result (to-weather {})]
                (spec/valid? ::ws/weather result) => false)))
 
-(facts "Weather reporter integration tests"
-       (fact "Call to openweathermap results in valid weather data"
+(fact-group "Weather reporter integration tests"
+       (fact :integration "Call to openweathermap results in valid weather data"
              (let [result (get-weather-info)]
                (spec/valid? ::ws/weather result) => true)))

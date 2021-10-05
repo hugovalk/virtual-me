@@ -3,7 +3,7 @@
   (:require [ring.mock.request :as mock]
             [virtual-me.httpkit :refer [app]]))
 
-(facts "Swagger API docs tests"
+(fact-group "Swagger API docs tests"
   (fact "/swagger.json exists"
     (let [response ((app false) (-> (mock/request :get "/swagger.json")))]
       (:status response) => 200))

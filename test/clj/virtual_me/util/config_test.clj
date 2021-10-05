@@ -2,7 +2,7 @@
   (:use midje.sweet
         virtual-me.util.config))
 
-(facts "Configuration loader tests"
+(fact-group "Configuration loader tests"
        (fact "Properties are loaded from disk"
              (config-get :test-prop :deeper-prop) => "deeper-value"))
 

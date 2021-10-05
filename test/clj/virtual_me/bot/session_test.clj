@@ -2,7 +2,7 @@
   (:use midje.sweet
         virtual-me.bot.session))
 
-(facts "The InMemoryChatSessionStore"
+(fact-group "The InMemoryChatSessionStore"
   (fact "Can create and store a new session"
     (let [store (atom {})
           repo (init-inmemory-chat-session-store store)

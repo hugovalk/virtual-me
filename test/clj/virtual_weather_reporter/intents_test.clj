@@ -8,8 +8,8 @@
 
 (let [session (butil/new-session)
       bot (butil/new-intents-bot wi/intents)]
-  (facts "Intents bot with weather intents facts"
-         (butil/validate-intents wi/intents "weather intents")
-         (butil/test-prompt-for-function bot session "What is the temperature?" #"The temperature is .*")
-         (butil/test-prompt-for-function bot session "How warm is it?" #"The temperature is .*")
-         (butil/test-prompt-for-function bot session "How cold is it?" #"The temperature is .*")))
+  (fact-group "Intents bot with weather intents facts"
+         (butil/validate-intents wi/intents "weather intents" :integration)
+         (butil/test-prompt-for-function bot session "What is the temperature?" #"The temperature is .*" :integration)
+         (butil/test-prompt-for-function bot session "How warm is it?" #"The temperature is .*" :integration)
+         (butil/test-prompt-for-function bot session "How cold is it?" #"The temperature is .*" :integration)))

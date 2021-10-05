@@ -10,7 +10,7 @@
 (defn json-get [key request]
   ((keyword key) (parse-json request)))
 
-(facts "Ping service tests"
+(fact-group "Ping service tests"
   (fact "/api/ping service returns OK"
     (let [response ((app false) (-> (mock/request :get "/api/ping/test")))]
       (:status response) => 200))
