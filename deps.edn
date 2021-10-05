@@ -62,6 +62,7 @@
            :fig {:extra-paths ["src/scripts"]
                  :extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}
                               cider/cider-nrepl {:mvn/version "0.26.0"}
+                              refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
                               cider/piggieback {:mvn/version "0.5.2"}}
                  :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
                  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
