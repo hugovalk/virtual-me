@@ -4,33 +4,39 @@ Virtual Me is a playground application that implements a chat bot with some
 intelligence. It is fully written in Clojure and ClojureScript.
 
 ## Running the application
-
+This project uses Clojure CLI and Deps. 
 Clone the project. Then run:
 
-    $ lein run
+    $ clj -M:run
 
 It will start the application on https://localhost:8080
 
 If you run:
 
-    $ lein figwheel
+    $ clj -M:fig -b dev -r
 
 It will reload server and client code whenever you make a change.
 
-## Usage
+To run unit tests continuously:
 
-If you want to build the app to run it, first run:
+    $ clj -M:autotest
+    
+To run all tests (including integration tests):
 
-    $ lein uberjar
+    $ clj -M:test
 
-This will produce a standalone jar that can be run with:
+To compile CSS:
 
-    $ java -jar virtual-me-0.1.0-standalone.jar
+    $ clj -M:garden-compile
 
+There are also scripts you can run, like downloading NLP models. Check `deps.edn`. 
+
+## Creating a package
+
+TODO. 
 
 ## License
 
 Copyright © 2017 Hugo Valk
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License either version 1.0 or any later version.
