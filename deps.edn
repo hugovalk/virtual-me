@@ -1,6 +1,6 @@
 {
  :deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        org.clojure/clojurescript {:mvn/version "1.10.879"}
+        org.clojure/clojurescript {:mvn/version "1.11.4"}
         im.chit/hara.io.scheduler {:mvn/version "2.5.10"}
         clojure-opennlp/clojure-opennlp {:mvn/version "0.5.0"}
         org.deeplearning4j/deeplearning4j-ui_2.11
@@ -12,19 +12,19 @@
         org.deeplearning4j/deeplearning4j-core {:mvn/version "1.0.0-beta3"}
         org.deeplearning4j/deeplearning4j-nlp {:mvn/version "1.0.0-beta3"}
         org.nd4j/nd4j-native-platform {:mvn/version "1.0.0-beta3"}
-        org.clojure/tools.logging {:mvn/version "1.1.0"}
-        org.slf4j/slf4j-api {:mvn/version "1.7.32"}
-        ch.qos.logback/logback-classic {:mvn/version "1.2.6"}
+        org.clojure/tools.logging {:mvn/version "1.2.4"}
+        org.slf4j/slf4j-api {:mvn/version "1.7.33"}
+        ch.qos.logback/logback-classic {:mvn/version "1.2.10"}
         compojure/compojure {:mvn/version "1.6.2"}
-        org.flatland/ordered {:mvn/version "1.5.9"}
+        org.flatland/ordered {:mvn/version "1.15.10"}
         metosin/compojure-api {:mvn/version "1.1.13"}
         ring/ring-defaults {:mvn/version "0.3.3"}
-        ring/ring-core {:mvn/version "1.9.4"}
-        ring/ring-devel {:mvn/version "1.9.4"}
-        ring-logger/ring-logger {:mvn/version "1.0.1"}
+        ring/ring-core {:mvn/version "1.9.5"}
+        ring/ring-devel {:mvn/version "1.9.5"}
+        ring-logger/ring-logger {:mvn/version "1.1.1"}
         http-kit/http-kit {:mvn/version "2.5.3"}
         com.taoensso/sente {:mvn/version "1.16.2"}
-        com.google.guava/guava {:mvn/version "30.1.1-jre"}
+        com.google.guava/guava {:mvn/version "31.0.1-jre"}
         cljsjs/react {:mvn/version "17.0.2-0"}
         cljsjs/react-dom {:mvn/version "17.0.2-0"}
         reagent/reagent {:mvn/version "1.1.0"}
@@ -37,7 +37,7 @@
         org.xerial/sqlite-jdbc {:mvn/version "3.36.0.3"}
         cprop/cprop {:mvn/version "0.1.19"}
         com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-        com.bhauman/figwheel-main {:mvn/version "0.2.14"}}
+        com.bhauman/figwheel-main {:mvn/version "0.2.15"}}
  :paths [:clj-paths :cljs-paths :resource-paths]
  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
             "-Dconf=./config.edn"]
@@ -60,26 +60,26 @@
            :run {:main-opts ["-m" "virtual-me.httpkit"]}
 
            :fig {:extra-paths ["src/scripts"]
-                 :extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}
-                              cider/cider-nrepl {:mvn/version "0.26.0"}
-                              refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
-                              cider/piggieback {:mvn/version "0.5.2"}}
+                 :extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}
+                              cider/cider-nrepl {:mvn/version "0.28.1"}
+                              refactor-nrepl/refactor-nrepl {:mvn/version "3.2.0"}
+                              cider/piggieback {:mvn/version "0.5.3"}}
                  :main-opts ["-i" "src/scripts/virtual_me_scripts/dev_start.clj" "-m" "figwheel.main"]
                  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
 
            :dev-classpath {:extra-paths ["test/clj" "src/scripts"]
-                           :extra-deps {midje/midje {:mvn/version "1.10.4"}
+                           :extra-deps {midje/midje {:mvn/version "1.10.5"}
                                     ring/ring-mock {:mvn/version "0.4.0"}}}
            
            :autotest {:main-opts ["-m" "virtual-me-scripts.autotest"]
                       :extra-paths ["test/clj" "src/scripts"]
-                      :extra-deps {midje/midje {:mvn/version "1.10.4"}
+                      :extra-deps {midje/midje {:mvn/version "1.10.5"}
                                    ring/ring-mock {:mvn/version "0.4.0"}}
                       :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
 
            :test {:main-opts ["-m" "virtual-me-scripts.test"]
                   :extra-paths ["test/clj" "src/scripts"]
-                  :extra-deps {midje/midje {:mvn/version "1.10.4"}
+                  :extra-deps {midje/midje {:mvn/version "1.10.5"}
                                ring/ring-mock {:mvn/version "0.4.0"}}
                   :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
             "-Dconf=./config.edn"]}
