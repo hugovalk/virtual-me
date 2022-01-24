@@ -41,7 +41,6 @@
 
 (defn push-message [text]
   (let [message (to-message text)]
-    (println message)
     (chsk-send!
       [:virtual-me.bot.specs/message message]
       8000
@@ -55,12 +54,12 @@
 (defn show-messages []
   [:div.messages-list
    (for [message @messages]
-     [:div.message
+     [:div.message {:key (str (:virtual-me.bot.specs/message-id message))}
       (let [div-class (if
                         (= (:virtual-me.bot.specs/author message) author)
-                        :div.myself
+                        :div.myself 
                         :div)]
-        [div-class {:key (str (:virtual-me.bot.specs/message-id message))} (:virtual-me.bot.specs/content message)])])])
+        [div-class (:virtual-me.bot.specs/content message)])])])
 
 (defn push-current-message-on-key-press [event]
   (when (= (.-key event) "Enter")
