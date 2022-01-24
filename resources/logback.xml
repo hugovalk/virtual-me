@@ -8,7 +8,9 @@
     </encoder>
   </appender>
 
-  <root level="info">
+  <logger name="ring.logger" level="ERROR"/>
+
+  <root level="INFO">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>
