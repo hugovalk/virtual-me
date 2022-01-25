@@ -89,9 +89,8 @@
                          :port 5555
                          :accept clojure.core.server/repl
                          :server-daemon false}}
-           :migrate-db {;:extra-deps {com.github.paulbutcher/clj-migratus {:git/tag "v1.0.1"
-                                        ;                                                  :git/sha "401521e"}}
-                        :extra-deps {com.github.hugovalk/clj-migratus {:git/sha "0611d6d14ee27aa00a2d9cb183d06b0a0266cf1c"}}
+           :migrate-db {:extra-deps {com.github.paulbutcher/clj-migratus {:git/tag "v1.0.2"
+                                                                          :git/sha "5ef41c6"}}
                         :main-opts ["-m" "clj-migratus"]
                         :jvm-opts ["-Dmigratus.config.path=virtual_me_scripts/migratus.clj"]
                         :extra-paths ["src/scripts"]}}}
