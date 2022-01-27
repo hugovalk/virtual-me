@@ -32,4 +32,4 @@
 (defn swap-atom-with-path!
   [value description]
   (if (change-path! value description)
-      (swap-atom-via-prompt! value (str description ": "))))
+    (swap-atom-via-prompt! value (str description ": "))))

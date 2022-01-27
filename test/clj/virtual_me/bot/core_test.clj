@@ -26,9 +26,8 @@
   (fact-group "Intents bot with default intents only facts"
          (butil/validate-intents intents "default intents")
          (fact "Bot has a default 'do not understand' message"
-               (b/receive bot session [(butil/create-message session "qqqqq")])
-               (let [response (b/respond bot session)]
-                 (::bspec/content response) => (::bspec/content (b/default-response session))))
+               (let [intent (:dont_understand intents)]
+                 (butil/test-prompt-for-intent bot session "qqqqq" intent)))
          (fact "Bot responds correctly to a greeting"
                (let [intent (:greeting intents)]
                  (butil/test-prompt-for-intent bot session "Hello" intent)
