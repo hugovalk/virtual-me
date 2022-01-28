@@ -10,6 +10,16 @@
             [clojure.tools.logging :refer [info debug]])
   (:import (java.util UUID)))
 
+(def bot (ibot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
+                               (merge
+                                ibot/default-intents
+                                weather-intents/intents
+                                )))
+;; TODO: Proper session handling. 
+(defonce session (UUID/randomUUID))
+(defonce router_ (atom nil))
+
+
 (let [{:keys [ch-recv send-fn connected-uids
               ajax-post-fn ajax-get-or-ws-handshake-fn]}
       (sente/make-channel-socket-server!
@@ -21,11 +31,6 @@
   (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
   (def connected-uids                connected-uids)) ; Watchable, read-only atom
 
-(def bot (ibot/->IntentsChatBot (ms/init-inmemory-chat-message-store)
-                               (merge
-                                ibot/default-intents
-                                weather-intents/intents
-                                )))
 
 (defmulti -event-msg-handler
           "Multimethod to handle Sente `event-msg`s"
@@ -46,8 +51,6 @@
     (when ?reply-fn
       (?reply-fn {:umatched-event-as-echoed-from-server event}))))
 
-;; TODO: Proper chat session handling. 
-(defonce session (UUID/randomUUID))
 (defmethod -event-msg-handler ::bspec/message
   [{:as ev-msg :keys [event ?reply-fn]}]
   (let [[id message] event]
@@ -56,7 +59,6 @@
       (bot/receive bot session [message-session])
       (?reply-fn (bot/respond bot session)))))
 
-(defonce router_ (atom nil))
 (defn stop-router! [] (when-let [stop-fn @router_] (stop-fn)))
 (defn start-router! []
   (stop-router!)
