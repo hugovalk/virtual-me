@@ -3,6 +3,7 @@
   (:require [virtual-me.bot.specs :as bspec]
             [virtual-me.bot.core :as b]
             [virtual-me.bot.intents.intents-bot :as ibot]
+            [virtual-me.bot.intents.specs :as ibspec]
             [virtual-me.bot.test-util :as butil]
             [clojure.spec.alpha :as spec]))
 
@@ -31,4 +32,9 @@
          (fact "Bot responds correctly to a greeting"
                (let [intent (:greeting intents)]
                  (butil/test-prompt-for-intent bot session "Hello" intent)
-                 (butil/test-prompt-for-intent bot session "Hi" intent)))))
+                 (butil/test-prompt-for-intent bot session "Hi" intent)))
+         (fact "Bot responds correctly to an answer"
+               (let [intent (:acknowledged intents)
+                     msg (butil/create-message session "answer")
+                     answer-message (assoc msg ::bspec/answering :test-intent)]
+                 (butil/test-message-for-intent bot answer-message intent)))))

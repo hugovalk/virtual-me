@@ -6,7 +6,9 @@
 (spec/def ::intentimestamp inst?)
 (spec/def ::author string?)
 (spec/def ::content string?)
+(spec/def ::answering keyword?)
 (spec/def ::message (spec/keys :req [::message-id
                                      ::session-id
                                      ::author
-                                     ::content]))
+                                     ::content]
+                               :opt [::answering]))

@@ -38,6 +38,15 @@
             (doseq [~m-v (vals ~intents)]
               (spec/conform ::ibspec/intent ~m-v) => ~m-v)))))
 
+(defmacro test-message-for-intent [bot message intent]
+  (let [m-response (gensym 'response)
+        m-possible-responses (gensym 'possible-responses)]
+    `(fact (str ~(str "Bot answers correctly for message: " message " with intent: ") (::ibspec/tag ~intent))
+           (b/receive ~bot (::bspec/session-id ~message) [~message])
+           (let [~m-response (::bspec/content (b/respond ~bot (::bspec/session-id ~message)))
+                 ~m-possible-responses (::ibspec/responses ~intent)]
+             (some #(= % ~m-response) ~m-possible-responses) => true))))
+
 (defmacro test-prompt-for-intent [bot session prompt intent]
   (let [m-response (gensym 'response)
         m-possible-responses (gensym 'possible-responses)]

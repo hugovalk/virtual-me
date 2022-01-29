@@ -19,6 +19,10 @@
                      ::ibspec/intent-type ::ibspec/text-intent
                      ::ibspec/pattern ["thanks" "thank you" "that's helpful"]
                      ::ibspec/responses ["My pleasure!" "Don't mention it." "Any time!" "Happy to help."]}
+   :acknowledged    {::ibspec/tag "acknowledged"
+                     ::ibspec/intent-type ::ibspec/text-intent
+                     ::ibspec/pattern ["######"]
+                     ::ibspec/responses ["OK!", "Got it!"]}
    :dont_understand {::ibspec/tag "dont_understand"
                      ::ibspec/intent-type ::ibspec/text-intent
                      ::ibspec/pattern ["######"]
@@ -41,11 +45,12 @@
       ::ibspec/function-intent (let [func (::ibspec/function intent)]
                                 (func)))))
 
-
 (defn- match-intent [all-intents last-message]
-  (if-let [matching-intent  (find-matching-intent all-intents (::bspec/content last-message))]
-    matching-intent
-    (:dont_understand default-intents)))
+  (if-let [answer-intent (::bspec/answering last-message)]
+    (:acknowledged default-intents)
+    (if-let [matching-intent  (find-matching-intent all-intents (::bspec/content last-message))]
+      matching-intent
+      (:dont_understand default-intents))))
 
 
 (defrecord IntentsChatBot [session-store all-intents]
