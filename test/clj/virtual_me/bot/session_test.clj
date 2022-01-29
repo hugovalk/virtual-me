@@ -8,7 +8,7 @@
           repo (init-inmemory-chat-session-store store)
           session (new-session repo "Hugo")
           session-id (:session-id session)]
-      ((keyword session-id) @store) => {:session-id session-id :name "Hugo"}))
+      ((keyword session-id) @store) => (map->Session {:session-id session-id :name "Hugo"})))
 
   (fact "Can retrieve an earlier stored session"
     (let [repo (init-inmemory-chat-session-store)

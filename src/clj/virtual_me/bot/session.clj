@@ -1,7 +1,7 @@
 (ns virtual-me.bot.session
   (:import (java.util UUID)))
 
-(defrecord Session [session-id name])
+(defrecord Session [session-id name current-context])
 
 (defprotocol ChatSessionStore
   (new-session [chat-store name] "Create a new chat session with the name of the user.")
@@ -11,7 +11,7 @@
 (defrecord InMemoryChatSessionStore [store]
   ChatSessionStore
   (new-session [chat-store name]
-    (let [new-session (Session. (.toString (UUID/randomUUID)) name)]
+    (let [new-session (map->Session {:session-id (.toString (UUID/randomUUID)) :name name})]
       (swap! (:store chat-store) assoc (keyword (:session-id new-session)) new-session)
       new-session))
   (load-session [chat-store session-id]
