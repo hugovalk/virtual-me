@@ -1,6 +1,6 @@
 (ns virtual-me-scripts.nlp.w2v-trainer
   (:require [virtual-me.tools :as tools]
-            [virtual-me.dl4j.ui :as ui]
+            [virtual-me-scripts.nlp.dl4j.ui :as ui]
             [clojure.java.io :as io])
   (:import (org.deeplearning4j.text.sentenceiterator LineSentenceIterator SentencePreProcessor)
            (org.deeplearning4j.text.tokenization.tokenizerfactory DefaultTokenizerFactory)

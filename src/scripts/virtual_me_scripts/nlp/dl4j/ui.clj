@@ -1,4 +1,4 @@
-(ns virtual-me.dl4j.ui
+(ns virtual-me-scripts.mlp.dl4j.ui
   (:import (org.deeplearning4j.ui.storage InMemoryStatsStorage)
            (org.deeplearning4j.ui.api UIServer)))
 

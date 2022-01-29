@@ -3,15 +3,9 @@
         org.clojure/clojurescript {:mvn/version "1.11.4"}
         im.chit/hara.io.scheduler {:mvn/version "2.5.10"}
         clojure-opennlp/clojure-opennlp {:mvn/version "0.5.0"}
-        org.deeplearning4j/deeplearning4j-ui_2.11
-        {:mvn/version "1.0.0-beta3"
-         :exclusions  [org.eclipse.collections/eclipse-collections-forkjoin
-                       org.eclipse.collections/eclipse-collections-api
-                       org.eclipse.collections/eclipse-collections
-                       com.google.guava/guava]}
-        org.deeplearning4j/deeplearning4j-core {:mvn/version "1.0.0-beta3"}
-        org.deeplearning4j/deeplearning4j-nlp {:mvn/version "1.0.0-beta3"}
-        org.nd4j/nd4j-native-platform {:mvn/version "1.0.0-beta3"}
+        org.deeplearning4j/deeplearning4j-core {:mvn/version "1.0.0-M1.1"}
+        org.deeplearning4j/deeplearning4j-nlp {:mvn/version "1.0.0-M1.1"}
+        org.nd4j/nd4j-native-platform {:mvn/version "1.0.0-M1.1"}
         org.clojure/tools.logging {:mvn/version "1.2.4"}
         org.slf4j/slf4j-api {:mvn/version "1.7.33"}
         ch.qos.logback/logback-classic {:mvn/version "1.2.10"}
@@ -52,8 +46,13 @@
                                  :extra-paths ["src/scripts"]}
 
            :train-w2v-models {:main-opts ["-m" "virtual-me-scripts.nlp.w2v-trainer"]
-                              :extra-paths ["src/scripts"]}
-
+                              :extra-paths ["src/scripts"]
+                              :extra-deps {org.deeplearning4j/deeplearning4j-ui
+                                           {:mvn/version "1.0.0-M1.1"
+                                            :exclusions  [org.eclipse.collections/eclipse-collections-forkjoin
+                                                          org.eclipse.collections/eclipse-collections-api
+                                                          org.eclipse.collections/eclipse-collections
+                                                          com.google.guava/guava]}}}
            :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                       :main-opts ["-m" "antq.core"]}
 
