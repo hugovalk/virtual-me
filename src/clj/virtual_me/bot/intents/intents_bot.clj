@@ -20,12 +20,10 @@
                      ::ibspec/pattern ["thanks" "thank you" "that's helpful"]
                      ::ibspec/responses ["My pleasure!" "Don't mention it." "Any time!" "Happy to help."]}
    :acknowledged    {::ibspec/tag "acknowledged"
-                     ::ibspec/intent-type ::ibspec/text-intent
-                     ::ibspec/pattern ["######"]
+                     ::ibspec/intent-type ::ibspec/just-reply-intent
                      ::ibspec/responses ["OK!", "Got it!"]}
    :dont_understand {::ibspec/tag "dont_understand"
-                     ::ibspec/intent-type ::ibspec/text-intent
-                     ::ibspec/pattern ["######"]
+                     ::ibspec/intent-type ::ibspec/just-reply-intent
                      ::ibspec/responses ["I don't understand." "Sorry, I don't get it."]}})
 
 
@@ -37,13 +35,20 @@
 (defn- find-matching-intent [intents prompt]
   (some #(when (prompt-matches-intent? % prompt) %) (vals intents)))
 
+(defn- select-answer [intent]
+  (rand-nth (::ibspec/responses intent)))
+
+(defn- run-function [intent]
+  (let [func (::ibspec/function intent)]
+    (func)))
 
 (defn- get-answer-from-intent [intent]
   (let [intent-type (::ibspec/intent-type intent)]
     (case intent-type
-      ::ibspec/text-intent (rand-nth (::ibspec/responses intent))
-      ::ibspec/function-intent (let [func (::ibspec/function intent)]
-                                (func)))))
+      ::ibspec/text-intent (select-answer intent)
+      ::ibspec/just-reply-intent (select-answer intent)
+      ::ibspec/answer-intent (run-function intent)
+      ::ibspec/function-intent (run-function intent))))
 
 (defn- match-intent [all-intents last-message]
   (if-let [answer-intent (::bspec/answering last-message)]
