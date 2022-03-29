@@ -1,4 +1,4 @@
-(ns virtual-knowledge-graph.core-test
+(ns virtual-knowledge-graph.asami.core-test
   (:use midje.sweet
         virtual-knowledge-graph.asami.core)
   (:require [clojure.spec.alpha :as spec]
@@ -9,7 +9,7 @@
   {::kg/node-id (UUID/randomUUID)
    ::kg/node-name :father})
 
-(fact-group "Asami GraphStore tests"
+(fact-group "Asami GraphStore node tests"
             (fact "A node is properly converted to Asami."
                   (let [node (create-node)
                         asami-entity (to-asami-entity node)]
@@ -20,8 +20,8 @@
                         asami-entity {::kg/node-name :father}
                         node (to-kg-node id asami-entity)]
                     node => {::kg/node-id id ::kg/node-name :father}))
-            (fact "An entity can be stored and retrieved."
+            (fact "An node can be stored and retrieved."
                   (let [node (create-node)
                         graph (init-inmemory-graph-store)
-                        id (save-node graph node)]
-                    (get-node graph (::kg/node-id node)) => node)))
+                        id (kg/save-node graph node)]
+                    (kg/get-node graph (::kg/node-id node)) => node)))

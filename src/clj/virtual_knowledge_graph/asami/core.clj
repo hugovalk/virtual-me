@@ -14,12 +14,11 @@
   kg/GraphStore
   (save-node [_ node]
     (if (spec/valid? ::kg/node node)
-      (as/transact conn {:tx-data (to-asami-node node)})
+      (as/transact conn {:tx-data (to-asami-entity node)})
       nil))
   (save-relation [_ relation] true)
   (get-node [_ id]
     (let [node (as/entity (as/db conn) id)]
-      (println node)
       (to-kg-node id node)))
   (query [_ query] true))
 
