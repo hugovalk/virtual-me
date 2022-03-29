@@ -1,34 +1,36 @@
 (ns virtual-knowledge-graph.asami.core
-  (:require [asami.core :as as]))
+  (:require [asami.core :as as]
+            [virtual-knowledge-graph.core :as kg]
+            [virtual-me.util.config :as cf]
+            [clojure.spec.alpha :as spec]
+            [clojure.set :refer [rename-keys]]))
 
-(def db-uri "asami:mem://dbname")
+(defn to-asami-entity [node]
+  (rename-keys node {::kg/node-id :db/ident}))
+(defn to-kg-node [id asami-entity]
+  (assoc asami-entity ::kg/node-id id))
 
-(as/create-database db-uri)
-(def conn (as/connect db-uri))
+(defrecord AsamiGraphStore [conn]
+  kg/GraphStore
+  (save-node [_ node]
+    (if (spec/valid? ::kg/node node)
+      (as/transact conn {:tx-data (to-asami-node node)})
+      nil))
+  (save-relation [_ relation] true)
+  (get-node [_ id]
+    (let [node (as/entity (as/db conn) id)]
+      (println node)
+      (to-kg-node id node)))
+  (query [_ query] true))
 
-(def first-movies [{:movie/title "Explorers"
-                    :movie/genre "adventure/comedy/family"
-                    :movie/release-year 1985}
-                   {:movie/title "Demolition Man"
-                    :movie/genre "action/sci-fi/thriller"
-                    :movie/release-year 1993}
-                   {:movie/title "Johnny Mnemonic"
-                    :movie/genre "cyber-punk/action"
-                    :movie/release-year 1995}
-                   {:movie/title "Toy Story"
-                    :movie/genre "animation/adventure"
-                    :movie/release-year 1995}])
+(defn- init-graph-store [uri]
+  (as/create-database uri)
+  (let [conn (as/connect uri)]
+    (AsamiGraphStore. conn)))
 
+(defn init-inmemory-graph-store []
+  (init-graph-store (str "asami:mem://graphstore" (java.util.UUID/randomUUID))))
 
-@(as/transact conn {:tx-data first-movies})
-
-(def db (as/db conn))
-(as/q '[:find ?movie-title
-        :where [?m :movie/title ?movie-title]] db)
-
-(as/q '[:find ?title ?year ?genre
-        :where
-        [?m :movie/title ?title]
-        [?m :movie/release-year ?year]
-        [?m :movie/genre ?genre]
-        [(> ?year 1990)]] db)
+(defn init-local-graph-store []
+  (let [uri (str "asami:local://" (cf/config-get :graph :db :path))]
+    (init-graph-store uri)))
