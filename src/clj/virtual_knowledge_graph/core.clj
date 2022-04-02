@@ -18,4 +18,5 @@
   (save-node [this node] "Save or update a node in the graph.")
   (save-relation [this relation] "Save or update a relation between two nodes in the graph.")
   (get-node [this id] "Get a node from the graph.")
+  (relations-for-node [this id] "Get all the relations for node with id.")
   (query [this query] "Query the graph."))

@@ -16,10 +16,18 @@
     (if (spec/valid? ::kg/node node)
       (as/transact conn {:tx-data (to-asami-entity node)})
       nil))
-  (save-relation [_ relation] true)
+  (save-relation [_ relation]
+    (as/transact conn {:tx-data [[:db/add
+                       (::kg/rel-from relation)
+                       (::kg/rel-name relation)
+                       (::kg/rel-to relation)]]}))
   (get-node [_ id]
     (let [node (as/entity (as/db conn) id)]
       (to-kg-node id node)))
+  (relations-for-node [this id]
+    (let [query `[:find ?rel :where [~id ?rel]]
+          res (as/q query (as/db conn))]
+      (vec (flatten res))))
   (query [_ query] true))
 
 (defn- init-graph-store [uri]
